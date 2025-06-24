@@ -1,0 +1,121 @@
+[
+  {
+    "id": 1,
+    "title": "AI for Clinical History Management",
+    "category": "Healthcare",
+    "status": "Active",
+    "progress": 10,
+    "description": "This project focuses on the development of an advanced AI-driven system for the intelligent management of clinical histories. It aims to overcome the challenges of unstructured data in healthcare, such as SOAP notes, by employing Large Language Models (LLMs) and semantic search technologies. The core objective is to create a dynamic knowledge layer over patient data, utilizing graph databases to map complex relationships and ensure robust data interoperability. This will facilitate sophisticated querying for diagnostic support and clinical research, while rigorously adhering to data privacy protocols and healthcare compliance standards.",
+    "technologies": [
+      "LLM",
+      "SOAP Notes",
+      "Semantic Search",
+      "Data Privacy",
+      "Healthcare Compliance",
+      "Graph Databases"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "AI assisted tool to Learning and Training for Medical Professionals",
+    "category": "Healthcare",
+    "status": "Planning",
+    "progress": 5,
+    "description": "This initiative constitutes a formal investigation into the pedagogical applications of generative AI within medical education. The project will evaluate the efficacy of an AI-assisted adaptive learning platform designed to enhance the training of medical professionals. By leveraging specialized LLMs such as MedGemma, the system will generate personalized learning trajectories and provide real-time, context-aware feedback. The research will critically assess how cutting-edge AI models that process medical text and imagery can be used to create immersive and effective training modules, with a foundational analysis of the ethical considerations inherent in AI-mediated professional development [1, 2].",
+    "technologies": [
+      "LLMs",
+      "Generative AI",
+      "AI Ethics",
+      "MedGemma",
+      "AI Engineering"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Onboarding of Employee and Reskilling",
+    "category": "Education",
+    "status": "Active",
+    "progress": 10,
+    "description": "This research initiative is dedicated to mitigating knowledge deficits and accelerating the organizational assimilation of new personnel within medium to large enterprises. The project evaluates the efficacy of LLM-powered adaptive tutoring systems in creating personalized and efficient onboarding and reskilling pathways. A central focus is the development and validation of sophisticated prompt engineering strategies and AI-driven pedagogical frameworks to optimize knowledge transfer. The study also incorporates a critical examination of the ethical implications surrounding AI-mediated employee training and performance analytics [1, 2].",
+    "technologies": [
+      "AI Engineering",
+      "Prompt Engineering",
+      "AI Ethics",
+      "LLMs",
+      "EEC"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "LLM Impact & Risk Analysis",
+    "category": "Education",
+    "status": "Pending",
+    "progress": 40,
+    "description": "This project undertakes a techno-cognitive analysis of the integration of Large Language Models within corporate educational frameworks. The research aims to systematically quantify the impact of LLMs on employee productivity while investigating associated cognitive risks, such as intellectual dependency and the phenomenon of 'cognitive debt.' The primary scholarly and practical outcome will be the formulation of an empirically-grounded set of guidelines and governance protocols for the responsible, effective, and ethical deployment of LLM technologies in professional development settings [1, 2].",
+    "technologies": [
+      "Cognitive Science",
+      "LLM Analysis",
+      "AI Ethics",
+      "Productivity Metrics"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Software Developer Onboarding",
+    "category": "Business",
+    "status": "Active",
+    "progress": 8,
+    "description": "This project involves a systematic survey and development of an AI-augmented ecosystem designed to accelerate the onboarding process for software developers in organizations undergoing digital transformation. The research is centered on architecting intelligent AI agents, manifested as IDE extensions (e.g., for VSCode), which utilize Retrieval-Augmented Generation (RAG) to parse proprietary codebases and GIT repositories. The objective is to deliver a system that provides real-time, contextual support, thereby significantly reducing the ramp-up period and enhancing developer efficacy and integration [1, 2].",
+    "technologies": [
+      "AI Agents",
+      "VSCode Extension",
+      "GIT",
+      "RAG",
+      "LLMs"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "AI for Unstructured Business Data",
+    "category": "Business",
+    "status": "Planning",
+    "progress": 0,
+    "description": "This initiative is focused on architecting an intelligent knowledge management framework to extract actionable insights from heterogeneous, unstructured corporate data sources such as reports, emails, and contracts. By synthesizing Retrieval-Augmented Generation (RAG), vector databases, and knowledge graphs, the project aims to construct a sophisticated semantic search and data analysis layer. A pivotal goal is the seamless integration of this structured intelligence into enterprise systems like Business Process Management Systems (BPMS) and Headless CMS, thereby transforming inert data archives into dynamic assets that drive process automation and strategic decision-making [1, 2].",
+    "technologies": [
+      "RAG",
+      "Vector DB",
+      "LLM",
+      "Semantic Search",
+      "Knowledge Graphs",
+      "BPMS",
+      "CMS Headless"
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Mini-pilot AI Tools for Senior Support",
+    "category": "Completed",
+    "progress": 100,
+    "description": "This concluded pilot project encompassed the design, implementation, and empirical assessment of an assistive AI technology tailored for older adults. The research objective was to evaluate the effectiveness of user-centric AI in augmenting the autonomy of seniors in daily activities. The solution employed multimodal interfaces, specifically leveraging voice-driven AI and video capture analysis powered by the Gemini LLM. Foundational to its design was a rigorous application of accessibility engineering principles to ensure high usability and foster adoption within the target demographic, aligning with the lab's mission of creating socially impactful technology [1, 2].",
+    "team": [
+      "Felipe Valencia USA"
+    ],
+    "technologies": [
+      "Gemini LLM",
+      "Voice AI",
+      "Accessibility Tech"
+    ]
+  },
+  {
+    "id": 8,
+    "title": "AI Tools for Senior Support",
+    "category": "Healthcare",
+    "status": "Planning",
+    "progress": 0,
+    "description": "Building upon the empirical findings from the initial mini-pilot, this project will architect a second-generation AI companion for senior care. This planning phase is focused on the conceptual design of a more sophisticated, proactive system utilizing autonomous AI agents and advanced LLMs. The research will investigate methodologies for delivering personalized, context-aware support that extends beyond simple task execution to include cognitive engagement and wellness monitoring. The ultimate aim is to address complex challenges in elder care through a scalable, ethically-grounded technological solution [1, 2].",
+    "technologies": [
+      "AI Agents",
+      "LLMs"
+    ]
+  }
+]
