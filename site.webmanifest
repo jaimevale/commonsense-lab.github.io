@@ -1,0 +1,17 @@
+{
+  "name": "Common Sense IA Laboratory",
+  "short_name": "CommonSense IA",
+  "description": "An open, collaborative AI laboratory focused on transforming unstructured information into actionable, socially impactful products.",
+  "icons": [
+    {
+      "src": "/favicon-64x64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#448aff"
+}
