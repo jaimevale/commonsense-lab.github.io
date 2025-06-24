@@ -33,18 +33,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeBtn = document.querySelector('.close-btn');
 
     function displayProjects(filter = 'all') {
-        console.log('[As you wish 0:] Filter selected:', filter);
-       
+        // As you wish 1:
         projectGrid.innerHTML = '';
         const normalizedFilter = (filter || 'all').toString().trim().toLowerCase();
-        console.log('[As you wish 1:] Filter selected:', filter, '| Normalized:', normalizedFilter);
-        const allCategories = [...new Set(projects.map(p => (p.category || '').toString().trim().toLowerCase()))];
-        console.log('[As you wish 1:] Available categories:', allCategories);
         const filteredProjects = projects.filter(p => {
             const projectCategory = (p.category || '').toString().trim().toLowerCase();
             return normalizedFilter === 'all' || projectCategory === normalizedFilter;
         });
-        console.log(`[As you wish 1:] Projects found for filter "${normalizedFilter}":`, filteredProjects.length);
         filteredProjects.forEach(project => {
             const card = document.createElement('div');
             card.className = 'project-card';
