@@ -1,14 +1,14 @@
 [
   {
     "id": 1,
-    "title": "AI for Clinical History Management",
+    "title": "AI Assistant for Clinical History Quality",
     "category": "Healthcare",
     "status": "Active",
     "progress": 10,
-    "description": "This project focuses on the development of an advanced AI-driven system for the intelligent management of clinical histories. It aims to overcome the challenges of unstructured data in healthcare, such as SOAP notes, by employing Large Language Models (LLMs) and semantic search technologies. The core objective is to create a dynamic knowledge layer over patient data, utilizing graph databases to map complex relationships and ensure robust data interoperability. This will facilitate sophisticated querying for diagnostic support and clinical research, while rigorously adhering to data privacy protocols and healthcare compliance standards [1].",
+    "description": "This project is dedicated to developing advanced AI-driven tools to support physicians during the clinical note-taking process. It is not intended to replace existing Electronic Health Record (EHR) systems like Epic or Cerner, which remain the authoritative platforms for storing and managing clinical histories. Instead, our focus is on making the documentation process simpler, more comprehensive, and seamlessly coordinated with prior patient information. Key objectives include enabling real-time quality assessment of clinical notes against standard templates (such as SOAP or APSO) and custom configurations, as well as evaluating new entries for anomalies or inconsistencies when compared to the patient's historical record. To achieve these goals, the system will address the challenge of unstructured healthcare data by employing Large Language Models (LLMs) and semantic search technologies. The core technical strategy involves creating a dynamic knowledge layer over patient data, utilizing graph databases to map complex clinical relationships and ensure robust data interoperability. This infrastructure will facilitate sophisticated querying for enhanced diagnostic support and clinical research, all while operating under strict adherence to data privacy protocols and healthcare compliance standards.",
     "technologies": [
       "LLMs",
-      "SOAP Notes",
+      "SOAP, APSO, DAP Notes",
       "Semantic Search",
       "Data Privacy",
       "Healthcare Compliance",
