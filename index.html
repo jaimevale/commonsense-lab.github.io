@@ -190,6 +190,40 @@
         #project-modal.active {
             display: flex;
         }
+        .tech-tag {
+            display: inline-block;
+            background: linear-gradient(90deg, #e5e7eb 60%, #f3f4f6 100%);
+            color: #374151;
+            font-size: 0.82rem;
+            font-weight: 500;
+            border-radius: 9999px;
+            padding: 0.18rem 0.75rem;
+            margin: 0 0.1rem 0.2rem 0;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            border: 1px solid #e5e7eb;
+            transition: background 0.2s;
+            cursor: default;
+        }
+        .tech-tag:hover {
+            background: linear-gradient(90deg, #f3f4f6 60%, #e5e7eb 100%);
+        }
+        .technology-tag {
+            display: inline-block;
+            background: linear-gradient(90deg, #f1f3f6 0%, #e2e4e8 100%);
+            color: #444;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 999px;
+            padding: 0.25rem 0.75rem;
+            margin: 0 0.15rem 0.15rem 0;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            border: 1px solid #e0e0e0;
+            transition: background 0.2s;
+            cursor: default;
+        }
+        .technology-tag:hover {
+            background: linear-gradient(90deg, #e2e4e8 0%, #f1f3f6 100%);
+        }
     </style>
 </head>
 <body>
@@ -535,22 +569,37 @@
             modalContent.innerHTML = `
                 <button id=\"modal-close-btn-inner\" class=\"absolute top-4 right-4 text-2xl text-gray-600 hover:text-red-500\" aria-label=\"Close project details\">&times;</button>
                 <h2 id=\"modal-title\" class=\"text-3xl font-bold mb-4 text-blue-900\">${project.title}</h2>
-                <div class=\"flex justify-between items-center mb-4\">
-                    <span class=\"text-lg font-semibold text-blue-600\">${project.category}</span>
-                    <span class=\"text-md px-3 py-1 rounded-full ${project.status === 'Active' ? 'bg-yellow-200 text-yellow-800' : project.status === 'Completed' ? 'bg-green-200 text-green-800' : 'bg-gray-200 text-gray-800'}\">${project.status}</span>
-                </div>
-                <p class=\"text-gray-700 mb-6\">${project.description}</p>
-                <h4 class=\"font-bold mb-2\">Technologies:</h4>
-                <div class=\"flex flex-wrap gap-2 mb-6\">
-                    ${project.technologies.map(t => `<span class=\\\"bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm\\\">${t}</span>`).join('')}
-                </div>
-                <h4 class=\"font-bold mb-2\">Progress:</h4>
-                <div class=\"flex flex-col items-center mb-4\">
-                    <svg id=\"progress-gauge\" width=\"120\" height=\"120\" viewBox=\"0 0 120 120\">
-                        <circle cx=\"60\" cy=\"60\" r=\"50\" fill=\"none\" stroke=\"#e5e7eb\" stroke-width=\"14\"/>
-                        <circle id=\"gauge-fg\" cx=\"60\" cy=\"60\" r=\"50\" fill=\"none\" stroke=\"#007BFF\" stroke-width=\"14\" stroke-linecap=\"round\" stroke-dasharray=\"314.159\" stroke-dashoffset=\"314.159\" transform=\"rotate(-90 60 60)\"/>
-                        <text id=\"gauge-label\" x=\"60\" y=\"68\" text-anchor=\"middle\" font-size=\"22\" fill=\"#1e293b\" font-weight=\"bold\">0%</text>
-                    </svg>
+                <div class=\"flex flex-row gap-8\">
+                    <!-- Left: Category and Description (75%) -->
+                    <div class=\"w-3/4\">
+                        <div class=\"flex justify-between items-center mb-4\">
+                            <span class=\"text-lg font-semibold text-blue-600\">${project.category}</span>
+                            <span class=\"text-md px-3 py-1 rounded-full ${project.status === 'Active' ? 'bg-yellow-200 text-yellow-800' : project.status === 'Completed' ? 'bg-green-200 text-green-800' : 'bg-gray-200 text-gray-800'}\">${project.status}</span>
+                        </div>
+                        <p class=\"text-gray-700 mb-6\">${project.description}</p>
+                    </div>
+                    <!-- Right: Technologies and Progress (25%) -->
+                    <div class=\"w-1/4 flex flex-col items-center\">
+                        <h4 class=\"font-bold mb-2\">Technologies:</h4>
+                        <div class=\"flex flex-wrap gap-2 mb-6 justify-center\">
+                            ${project.technologies.map(t => `<span class=\"technology-tag\">${t}</span>`).join('')}
+                        </div>
+                        <h4 class=\"font-bold mb-2\">Progress:</h4>
+                        <div class=\"flex flex-col items-center mb-4\">
+                            <svg id=\"progress-gauge\" width=\"120\" height=\"120\" viewBox=\"0 0 120 120\">
+                                <defs>
+                                    <linearGradient id=\"gemini-gradient\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">
+                                        <stop offset=\"0%\" stop-color=\"#4f8cff\"/>
+                                        <stop offset=\"50%\" stop-color=\"#7b61ff\"/>
+                                        <stop offset=\"100%\" stop-color=\"#00e0e0\"/>
+                                    </linearGradient>
+                                </defs>
+                                <circle cx=\"60\" cy=\"60\" r=\"50\" fill=\"none\" stroke=\"#e5e7eb\" stroke-width=\"14\"/>
+                                <circle id=\"gauge-fg\" cx=\"60\" cy=\"60\" r=\"50\" fill=\"none\" stroke=\"url(#gemini-gradient)\" stroke-width=\"14\" stroke-linecap=\"round\" stroke-dasharray=\"314.159\" stroke-dashoffset=\"314.159\" transform=\"rotate(-90 60 60)\"/>
+                                <text id=\"gauge-label\" x=\"60\" y=\"68\" text-anchor=\"middle\" font-size=\"22\" fill=\"#1e293b\" font-weight=\"bold\">0%</text>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
             `;
             modal.classList.add('active');
