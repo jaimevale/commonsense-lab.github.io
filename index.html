@@ -533,39 +533,34 @@
             const project = projects.find(p => String(p.id) === String(projectId));
             if (!project) return;
             modalContent.innerHTML = `
-                <button id="modal-close-btn-inner" class="absolute top-4 right-4 text-2xl text-gray-600 hover:text-red-500" aria-label="Close project details">&times;</button>
-                <h2 id="modal-title" class="text-3xl font-bold mb-4 text-blue-900">${project.title}</h2>
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-lg font-semibold text-blue-600">${project.category}</span>
-                    <span class="text-md px-3 py-1 rounded-full ${project.status === 'Active' ? 'bg-yellow-200 text-yellow-800' : project.status === 'Completed' ? 'bg-green-200 text-green-800' : 'bg-gray-200 text-gray-800'}">${project.status}</span>
+                <button id=\"modal-close-btn-inner\" class=\"absolute top-4 right-4 text-2xl text-gray-600 hover:text-red-500\" aria-label=\"Close project details\">&times;</button>
+                <h2 id=\"modal-title\" class=\"text-3xl font-bold mb-4 text-blue-900\">${project.title}</h2>
+                <div class=\"flex justify-between items-center mb-4\">
+                    <span class=\"text-lg font-semibold text-blue-600\">${project.category}</span>
+                    <span class=\"text-md px-3 py-1 rounded-full ${project.status === 'Active' ? 'bg-yellow-200 text-yellow-800' : project.status === 'Completed' ? 'bg-green-200 text-green-800' : 'bg-gray-200 text-gray-800'}\">${project.status}</span>
                 </div>
-                <p class="text-gray-700 mb-6">${project.description}</p>
-                <h4 class="font-bold mb-2">Technologies:</h4>
-                <div class="flex flex-wrap gap-2 mb-6">
-                    ${project.technologies.map(t => `<span class=\"bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm\">${t}</span>`).join('')}
+                <p class=\"text-gray-700 mb-6\">${project.description}</p>
+                <h4 class=\"font-bold mb-2\">Technologies:</h4>
+                <div class=\"flex flex-wrap gap-2 mb-6\">
+                    ${project.technologies.map(t => `<span class=\\\"bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm\\\">${t}</span>`).join('')}
                 </div>
-                <h4 class="font-bold mb-2">Progress:</h4>
-                <div class="flex flex-col items-center mb-4">
-                    <svg id="progress-gauge" width="180" height="100" viewBox="0 0 180 100">
-                        <path id="gauge-bg" d="M20,100 A80,80 0 0,1 160,100" fill="none" stroke="#e5e7eb" stroke-width="16"/>
-                        <path id="gauge-fg" d="M20,100 A80,80 0 0,1 160,100" fill="none" stroke="#007BFF" stroke-width="16" stroke-linecap="round" stroke-dasharray="251.327" stroke-dashoffset="251.327"/>
-                        <!-- Markers: 25%, 50%, 75% (dots only, no numbers) -->
-                        <circle cx="55" cy="70" r="2" fill="#fbbf24"/><!-- 25% -->
-                        <circle cx="90" cy="60" r="2" fill="#10b981"/><!-- 50% -->
-                        <circle cx="125" cy="70" r="2" fill="#6366f1"/><!-- 75% -->
-                        <!-- Progress Label -->
-                        <text id="gauge-label" x="90" y="95" text-anchor="middle" font-size="18" fill="#1e293b" font-weight="bold">0%</text>
+                <h4 class=\"font-bold mb-2\">Progress:</h4>
+                <div class=\"flex flex-col items-center mb-4\">
+                    <svg id=\"progress-gauge\" width=\"120\" height=\"120\" viewBox=\"0 0 120 120\">
+                        <circle cx=\"60\" cy=\"60\" r=\"50\" fill=\"none\" stroke=\"#e5e7eb\" stroke-width=\"14\"/>
+                        <circle id=\"gauge-fg\" cx=\"60\" cy=\"60\" r=\"50\" fill=\"none\" stroke=\"#007BFF\" stroke-width=\"14\" stroke-linecap=\"round\" stroke-dasharray=\"314.159\" stroke-dashoffset=\"314.159\" transform=\"rotate(-90 60 60)\"/>
+                        <text id=\"gauge-label\" x=\"60\" y=\"68\" text-anchor=\"middle\" font-size=\"22\" fill=\"#1e293b\" font-weight=\"bold\">0%</text>
                     </svg>
                 </div>
             `;
             modal.classList.add('active');
             document.getElementById('modal-close-btn-inner').addEventListener('click', () => modal.classList.remove('active'));
-            // As you wish 1: Animate the gauge (progress arc and label only)
+            // As you wish 1: Animate the full circle gauge (progress arc and label only)
             setTimeout(() => {
                 const fg = document.getElementById('gauge-fg');
                 const label = document.getElementById('gauge-label');
                 const percent = Math.max(0, Math.min(100, project.progress));
-                const totalLen = 251.327; // Arc length for semicircle
+                const totalLen = 314.159; // Circumference for r=50
                 let current = 0;
                 const steps = 30;
                 let step = 0;

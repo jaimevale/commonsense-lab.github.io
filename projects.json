@@ -98,6 +98,7 @@
     "id": 7,
     "title": "Mini-pilot AI Tools for Senior Support",
     "category": "Healthcare",
+    "status": "Completed",
     "progress": 100,
     "description": "This concluded pilot project encompassed the design, implementation, and empirical assessment of an assistive AI technology tailored for older adults. The research objective was to evaluate the effectiveness of user-centric AI in augmenting the autonomy of seniors in daily activities. The solution employed multimodal interfaces, specifically leveraging voice-driven AI and video capture analysis powered by the Gemini LLM. Foundational to its design was a rigorous application of accessibility engineering principles to ensure high usability and foster adoption within the target demographic, aligning with the lab's mission of creating socially impactful technology [1].",
     "team": [
