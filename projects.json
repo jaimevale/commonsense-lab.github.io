@@ -15,6 +15,20 @@
       "Graph Databases"
     ]
   },
+    {
+    "id": 10,
+    "title": "AI Governance Tools",
+    "category": "Business",
+    "status": "Active",
+    "progress": 12,
+    "url": "/governance.html",
+    "description": "[En español] Creación de herramientas de gobernanza para la IA: Utilizamos plataformas de IA para apoyar la investigación y recolección de material para definir un documento base para la creación de un marco de gobernanza para la IA, la gestión de riesgos y el cumplimiento normativo de iniciativas de Inteligencia Artificial. El objetivo de nuestro Grupo de Gobierno es establecer un conjunto de herramientas que ayuden a las organizaciones a definir una conversación -que esperamos que integre a múltiples actores- que conduzca a la definición de directrices y que faciliten a las organizaciones implementar prácticas responsables y éticas en el uso de la inteligencia artificial.",
+    "technologies": [
+      "Generative AI",
+      "AI Ethics",
+      "AI Governance"
+    ]
+  },
   {
     "id": 2,
     "title": "AI assisted tool to Learning and Training for Medical Professionals",
