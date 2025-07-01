@@ -45,18 +45,46 @@
             font-family: 'Work Sans', 'Inter', sans-serif;
         }
         .tab-active {
-            border-bottom: 2px solid var(--accent-color);
-            color: var(--accent-color);
+            background: linear-gradient(90deg, #4f8cff 0%, #7b61ff 50%, #00e0e0 100%);
+            color: #fff !important;
             font-weight: 700;
+            border-radius: 1rem 1rem 0 0;
+            box-shadow: 0 -2px 8px rgba(79,140,255,0.08);
+            border-bottom: 2px solid var(--accent-color);
+            z-index: 2;
+            position: relative;
         }
         .tab-inactive {
+            background: #f3f4f6;
             color: #6b7280;
+            border-radius: 1rem 1rem 0 0;
+            border-bottom: 2px solid transparent;
+            z-index: 1;
+            position: relative;
         }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
+        .tab-btn {
+            transition: background 0.2s, color 0.2s;
+            padding: 0.75rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0.25rem;
+            outline: none;
+            border: none;
+            cursor: pointer;
         }
+        .tab-btn:focus {
+            box-shadow: 0 0 0 2px #4f8cff33;
+        }
+        .tab-bar {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            background: transparent;
+            border-bottom: 2px solid #e5e7eb;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        /* Gauge Gemini Gradient */
         .chart-container {
             position: relative;
             width: 100%;
@@ -65,6 +93,15 @@
             margin-right: auto;
             height: 320px;
             max-height: 320px;
+        }
+        #governanceChartGemini {
+            display: block;
+            margin: 0 auto;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
         }
         /* Tag styles for frameworks, principles, etc. */
         .tech-tag, .technology-tag {
@@ -142,7 +179,18 @@
                     </div>
                     <div>
                         <div class="chart-container">
-                            <canvas id="governanceChart"></canvas>
+                            <svg id="governanceChartGemini" width="220" height="220" viewBox="0 0 120 120">
+                                <defs>
+                                    <linearGradient id="gemini-gauge-gradient" x1="0" y1="0" x2="1" y2="1">
+                                        <stop offset="0%" stop-color="#4f8cff"/>
+                                        <stop offset="50%" stop-color="#7b61ff"/>
+                                        <stop offset="100%" stop-color="#00e0e0"/>
+                                    </linearGradient>
+                                </defs>
+                                <circle cx="60" cy="60" r="50" fill="none" stroke="#e5e7eb" stroke-width="14"/>
+                                <circle id="gauge-fg-governance" cx="60" cy="60" r="50" fill="none" stroke="url(#gemini-gauge-gradient)" stroke-width="14" stroke-linecap="round" stroke-dasharray="314.159" stroke-dashoffset="314.159" transform="rotate(-90 60 60)"/>
+                                <text id="gauge-label-governance" x="60" y="68" text-anchor="middle" font-size="32" fill="#1e293b" font-weight="bold">0%</text>
+                            </svg>
                         </div>
                         <p class="text-center text-sm text-gray-500 mt-2">Solo el 35% de las empresas tiene un marco de gobernanza de IA.</p>
                     </div>
@@ -166,12 +214,12 @@
 
             <section id="sector-specific" class="bg-white p-6 sm:p-8 rounded-xl shadow-sm">
                 <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Marcos de Gobernanza por Sector</h2>
-                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">La aplicación de los principios de la IA varía significativamente según el contexto: ¿qué tipo de empresa?, ¿cuáles productos de IA se quieren ofrecer?, ¿los productos IA son para empleados, para clientes, para colaboradores?. El presente documento plantea prompts de creación de constituciones de governanza IA para los sectores de Educación y Financiero. Esperamos que este trabajo sirva como inicio de una conversación que ayude a identificar riesgos específicos, las oportunidades y un plan de gobernanza base, que sea punto de partida para un trabajo de especificación de constitución de gobierno IA. <strong></strong>CommonSense Lab </p>strong>está disponible para ayudar a concretar esta conversación, de forma que su organización logre un concreto modelo de gobernanza AI. Ayudamos en la implantación del modelo de gobierno IA y del manejo de los riesgos identificados, logrando un programa real requerido para la adopción segura de IA. Nuestro laboratorio también ha avanzado en modelos para Gobierno IA en Salud y aprendizaje apoyado por IA en ciencias de la Salud.</p>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">La aplicación de los principios de la IA varía significativamente según el contexto: ¿qué tipo de empresa?, ¿cuáles productos de IA se quieren ofrecer?, ¿los productos IA son para empleados, para clientes, para colaboradores?. El presente documento plantea prompts de creación de constituciones de governanza IA para los sectores de Educación y Financiero. Esperamos que este trabajo sirva como inicio de una conversación que ayude a identificar riesgos específicos, las oportunidades y un plan de gobernanza base, que sea punto de partida para un trabajo de especificación de constitución de gobierno IA. <strong>CommonSense Lab</strong> está disponible para ayudar a concretar esta conversación, de forma que su organización logre un concreto modelo de gobernanza AI. Ayudamos en la implantación del modelo de gobierno IA y del manejo de los riesgos identificados, logrando un programa real requerido para la adopción segura de IA. Nuestro laboratorio también ha avanzado en modelos para Gobierno IA en Salud y aprendizaje apoyado por IA en ciencias de la Salud.</p>
                 
                 <div class="border-b border-gray-200 mb-8">
-                    <nav class="-mb-px flex justify-center space-x-8" aria-label="Tabs">
-                        <button id="tab-educacion" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm tab-active">Educación</button>
-                        <button id="tab-finanzas" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm tab-inactive">Servicios Financieros</button>
+                    <nav class="tab-bar" aria-label="Tabs">
+                        <button id="tab-educacion" class="tab-btn tab-active">Educación</button>
+                        <button id="tab-finanzas" class="tab-btn tab-inactive">Servicios Financieros</button>
                     </nav>
                 </div>
 
@@ -205,7 +253,7 @@ const AppData = {
         { name: 'Beneficencia y No Maleficencia', icon: '🕊️', description: 'Garantizar que la IA promueva el bienestar humano y la sostenibilidad, mientras se previene y mitiga activamente el daño. Requiere Evaluaciones de Impacto Ético (EIE) antes del despliegue.' },
         { name: 'Justicia y Equidad', icon: '⚖️', description: 'Exigir que los sistemas de IA traten a las personas de forma equitativa y no perpetúen ni exacerben los sesgos sociales existentes, especialmente en datos de entrenamiento.' },
         { name: 'Transparencia y Explicabilidad', icon: '🔍', description: 'Asegurar que el funcionamiento y las decisiones de la IA sean comprensibles. Esto incluye informar sobre el uso de la IA (transparencia) y proporcionar razones claras para sus resultados (explicabilidad).' },
-        { name: 'Responsabilidad y Rendición de Cuentas', icon: ' accountability', description: 'Atribuir claramente la responsabilidad por los resultados de la IA a lo largo de su ciclo de vida. La responsabilidad humana final nunca puede delegarse en una máquina.' },
+        { name: 'Responsabilidad y Rendición de Cuentas', icon: '🫆', description: 'Atribuir claramente la responsabilidad por los resultados de la IA a lo largo de su ciclo de vida. La responsabilidad humana final nunca puede delegarse en una máquina.' },
         { name: 'Privacidad y Gobernanza de Datos', icon: '🛡️', description: 'Proteger los datos personales y el derecho de las personas a controlar su información, cumpliendo con marcos como RGPD durante todo el ciclo de vida de la IA.' },
         { name: 'Supervisión Humana', icon: '👨‍⚖️', description: 'Garantizar que los seres humanos puedan supervisar, influir y anular las decisiones de los sistemas de IA en todo momento, especialmente en situaciones de alto riesgo.' },
         { name: 'Robustez y Seguridad', icon: '⚙️', description: 'Asegurar que los sistemas de IA sean fiables, seguros frente a ataques y protegidos en su funcionamiento en condiciones normales y adversas.' },
@@ -215,7 +263,8 @@ const AppData = {
         { name: 'Recomendación de la UNESCO', status: 'Voluntario (Directrices Éticas)', scope: 'Global, centrado en derechos humanos, educación y cultura.', mandates: 'Exige EIE, prohíbe la puntuación social/vigilancia masiva.', compliance: 'Poder reside en la autoridad moral global.' },
         { name: 'Principios de IA de la OCDE', status: 'Voluntario (Estándar Intergubernamental)', scope: 'Países miembros, centrado en desarrollo económico y social.', mandates: 'Fomenta IA confiable para crecimiento inclusivo. Principios de transparencia y responsabilidad.', compliance: 'Adopción voluntaria y presión de pares.' },
         { name: 'Ley de IA de la UE', status: 'Vinculante (Regulación Legal)', scope: 'Extraterritorial, se aplica a proveedores en el mercado de la UE.', mandates: 'Enfoque basado en riesgo. Obligaciones estrictas para sistemas de alto riesgo.', compliance: 'Multas de hasta el 7% de la facturación global.' },
-        { name: 'Marco del NIST (EE.UU.)', status: 'Voluntario (Directrices Prácticas)', scope: 'Universal, para cualquier organización.', mandates: 'Marco operativo (Gobernar, Mapear, Medir, Gestionar) para la gestión de riesgos.', compliance: 'Sin sanciones; valor en su utilidad práctica.' }
+        { name: 'NIST AI Risk Management Framework', status: 'Voluntario (Directrices Prácticas)', scope: 'Universal, para cualquier organización.', mandates: 'Marco operativo (Gobernar, Mapear, Medir, Gestionar) para la gestión de riesgos.', compliance: 'Sin sanciones; valor en su utilidad práctica.' },
+       { "name": "ISO 42001", "status": "Norma Internacional Certificable (Voluntaria)", "scope": "Aplicable a cualquier organización que desarrolle, proporcione o utilice sistemas de IA.", "mandates": "Establece los requisitos para un Sistema de Gestión de Inteligencia Artificial (SGIA), enfocado en: la gestión de riesgos asociados a la IA, principios éticos (transparencia, equidad, etc.), y la mejora continua del SGIA.", "compliance": "Permite obtener certificación por terceros independientes, demostrando compromiso con el uso responsable de la IA y minimizando riesgos. El valor reside en su utilidad práctica y el fortalecimiento de la confianza de las partes interesadas."}
     ],
     education: {
         promiseAndPeril: {
@@ -332,245 +381,219 @@ Please generate the framework document following this exact table of contents:
     }
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-    
-    function initChart() {
-        const ctx = document.getElementById('governanceChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Con Marco de Gobernanza', 'Sin Marco de Gobernanza'],
-                datasets: [{
-                    data: [35, 65],
-                    backgroundColor: ['#3b82f6', '#e5e7eb'],
-                    borderColor: '#f8f9fa',
-                    borderWidth: 4,
-                    hoverOffset: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: '70%',
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            padding: 20,
-                            boxWidth: 12,
-                            font: {
-                                size: 12,
-                                family: 'Inter'
-                            }
-                        }
-                    },
-                    tooltip: {
-                        enabled: true,
-                        callbacks: {
-                            label: function(context) {
-                                return `${context.label}: ${context.raw}%`;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    function renderPrinciples() {
-        const container = document.querySelector('#global-consensus .grid');
-        container.innerHTML = AppData.principles.map(p => `
-            <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer principle-card">
-                <div class="flex items-center justify-between">
-                    <h3 class="text-lg font-semibold text-gray-900">${p.name}</h3>
-                    <span class="text-2xl">${p.icon}</span>
-                </div>
-                <div class="accordion-content mt-4 text-gray-600">
-                    <p>${p.description}</p>
-                </div>
+// As you wish 1: Move all render functions to top-level so they are defined before use
+function renderPrinciples() {
+    const container = document.querySelector('#global-consensus .grid');
+    container.innerHTML = AppData.principles.map(p => `
+        <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer principle-card">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold text-gray-900">${p.name}</h3>
+                <span class="text-2xl">${p.icon}</span>
             </div>
-        `).join('');
-    }
-
-    function renderFrameworks() {
-        const container = document.querySelector('#frameworks-comparison .grid');
-        container.innerHTML = AppData.frameworks.map(f => `
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex flex-col">
-                <h3 class="text-xl font-bold text-gray-900 mb-3">${f.name}</h3>
-                <p class="mb-4 text-gray-600 flex-grow">${f.scope}</p>
-                <div class="space-y-2 text-sm">
-                    <p><strong class="text-gray-700">Estatus:</strong> <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">${f.status}</span></p>
-                    <p><strong class="text-gray-700">Mandatos Clave:</strong> ${f.mandates}</p>
-                    <p><strong class="text-gray-700">Cumplimiento:</strong> ${f.compliance}</p>
-                </div>
+            <div class="accordion-content mt-4 text-gray-600">
+                <p>${p.description}</p>
             </div>
-        `).join('');
-    }
+        </div>
+    `).join('');
+}
 
-    function renderSectorContent(sector) {
-        const data = AppData[sector];
-        let riskContent;
-        if (sector === 'education') {
-            riskContent = `
-                <h4 class="text-lg font-semibold text-gray-800 mb-4">Matriz de Mitigación de Riesgos</h4>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full bg-white border border-gray-200">
-                        <thead class="bg-gray-50">
+function renderFrameworks() {
+    const container = document.querySelector('#frameworks-comparison .grid');
+    container.innerHTML = AppData.frameworks.map(f => `
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex flex-col">
+            <h3 class="text-xl font-bold text-gray-900 mb-3">${f.name}</h3>
+            <p class="mb-4 text-gray-600 flex-grow">${f.scope}</p>
+            <div class="space-y-2 text-sm">
+                <p><strong class="text-gray-700">Estatus:</strong> <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">${f.status}</span></p>
+                <p><strong class="text-gray-700">Mandatos Clave:</strong> ${f.mandates}</p>
+                <p><strong class="text-gray-700">Cumplimiento:</strong> ${f.compliance}</p>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderSectorContent(sector) {
+    const data = AppData[sector];
+    let riskContent;
+    if (sector === 'education') {
+        riskContent = `
+            <h4 class="text-lg font-semibold text-gray-800 mb-4">Matriz de Mitigación de Riesgos</h4>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Caso de Uso</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Riesgos Primarios</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Medidas de Control</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        ${data.riskMatrix.map(row => `
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Caso de Uso</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Riesgos Primarios</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Medidas de Control</th>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${row.useCase}</td>
+                                <td class="px-6 py-4 whitespace-normal text-sm text-gray-600">${row.risks}</td>
+                                <td class="px-6 py-4 whitespace-normal text-sm text-gray-600">${row.controls}</td>
                             </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            ${data.riskMatrix.map(row => `
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${row.useCase}</td>
-                                    <td class="px-6 py-4 whitespace-normal text-sm text-gray-600">${row.risks}</td>
-                                    <td class="px-6 py-4 whitespace-normal text-sm text-gray-600">${row.controls}</td>
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
-                </div>
-            `;
-        } else {
-            riskContent = `
-                <h4 class="text-lg font-semibold text-gray-800 mb-4">Lista de Verificación para un Marco Responsable</h4>
-                <div class="bg-gray-50 p-4 rounded-lg">
-                    <ul class="space-y-3">
-                        ${data.checklist.map(item => `
-                            <li class="flex items-start">
-                                <span class="flex-shrink-0 h-6 w-6 rounded-full bg-green-100 text-green-800 flex items-center justify-center text-sm font-bold">✓</span>
-                                <p class="ml-3 text-sm text-gray-700"><strong class="font-semibold">${item.category}:</strong> ${item.item}</p>
-                            </li>
                         `).join('')}
-                    </ul>
-                </div>
-            `;
-        }
-        
-        return `
-            <div class="grid md:grid-cols-2 gap-8 mb-12">
-                <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
-                    <h3 class="text-xl font-bold text-blue-900 mb-4">${data.promiseAndPeril.promise.title}</h3>
-                    <ul class="list-disc list-inside space-y-2 text-blue-800">
-                        ${data.promiseAndPeril.promise.points.map(p => `<li>${p}</li>`).join('')}
-                    </ul>
-                </div>
-                <div class="bg-red-50 p-6 rounded-lg border border-red-200">
-                    <h3 class="text-xl font-bold text-red-900 mb-4">${data.promiseAndPeril.peril.title}</h3>
-                    <ul class="list-disc list-inside space-y-2 text-red-800">
-                        ${data.promiseAndPeril.peril.points.map(p => `<li>${p}</li>`).join('')}
-                    </ul>
-                </div>
+                    </tbody>
+                </table>
             </div>
-            
-            <div>
-                <h3 class="text-xl font-bold text-gray-900 mb-6 text-center">Plan de Gobernanza Esencial</h3>
-                <div class="space-y-4">
-                    ${data.governancePlan.map((item, index) => `
-                        <div class="border border-gray-200 rounded-lg">
-                            <button class="w-full flex justify-between items-center p-4 text-left font-semibold text-gray-800 accordion-trigger">
-                                <span>${item.title}</span>
-                                <span class="transform transition-transform duration-300">▼</span>
-                            </button>
-                            <div class="accordion-content px-4 pb-4 text-gray-600">
-                                ${item.content}
-                            </div>
-                        </div>
+        `;
+    } else {
+        riskContent = `
+            <h4 class="text-lg font-semibold text-gray-800 mb-4">Lista de Verificación para un Marco Responsable</h4>
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <ul class="space-y-3">
+                    ${data.checklist.map(item => `
+                        <li class="flex items-start">
+                            <span class="flex-shrink-0 h-6 w-6 rounded-full bg-green-100 text-green-800 flex items-center justify-center text-sm font-bold">✓</span>
+                            <p class="ml-3 text-sm text-gray-700"><strong class="font-semibold">${item.category}:</strong> ${item.item}</p>
+                        </li>
                     `).join('')}
-                </div>
-            </div>
-            
-            <div class="mt-12">
-                ${riskContent}
+                </ul>
             </div>
         `;
     }
-    
-    function renderPrompts() {
-        const container = document.querySelector('#prompts .grid');
-        const prompts = [AppData.education.prompt, AppData.finance.prompt];
-        container.innerHTML = prompts.map((p, index) => `
-            <div class="bg-gray-900 text-gray-100 rounded-xl shadow-lg p-6 flex flex-col">
-                 <h3 class="text-xl font-bold text-white mb-4">${p.title}</h3>
-                 <div class="bg-gray-800 rounded-md p-4 text-sm font-mono overflow-x-auto h-64 flex-grow relative">
-                    <p class="whitespace-pre-wrap"><strong class="text-yellow-400">Persona:</strong> ${p.persona}</p><br>
-                    <p class="whitespace-pre-wrap"><strong class="text-green-400">Objective:</strong> ${p.objective}</p><br>
-                    <p class="whitespace-pre-wrap"><strong class="text-cyan-400">Structure:</strong> ${p.structure}</p>
-                 </div>
-                 <button class="copy-btn mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300" data-index="${index}">Copiar Prompt</button>
+    return `
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                <h3 class="text-xl font-bold text-blue-900 mb-4">${data.promiseAndPeril.promise.title}</h3>
+                <ul class="list-disc list-inside space-y-2 text-blue-800">
+                    ${data.promiseAndPeril.promise.points.map(p => `<li>${p}</li>`).join('')}
+                </ul>
             </div>
-        `).join('');
+            <div class="bg-red-50 p-6 rounded-lg border border-red-200">
+                <h3 class="text-xl font-bold text-red-900 mb-4">${data.promiseAndPeril.peril.title}</h3>
+                <ul class="list-disc list-inside space-y-2 text-red-800">
+                    ${data.promiseAndPeril.peril.points.map(p => `<li>${p}</li>`).join('')}
+                </ul>
+            </div>
+        </div>
+        <div>
+            <h3 class="text-xl font-bold text-gray-900 mb-6 text-center">Plan de Gobernanza Esencial</h3>
+            <div class="space-y-4">
+                ${data.governancePlan.map((item, index) => `
+                    <div class="border border-gray-200 rounded-lg">
+                        <button class="w-full flex justify-between items-center p-4 text-left font-semibold text-gray-800 accordion-trigger">
+                            <span>${item.title}</span>
+                            <span class="transform transition-transform duration-300">▼</span>
+                        </button>
+                        <div class="accordion-content px-4 pb-4 text-gray-600">
+                            ${item.content}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+        <div class="mt-12">
+            ${riskContent}
+        </div>
+    `;
+}
+
+function renderPrompts() {
+    const container = document.querySelector('#prompts .grid');
+    const prompts = [AppData.education.prompt, AppData.finance.prompt];
+    container.innerHTML = prompts.map((p, index) => `
+        <div class="bg-gray-900 text-gray-100 rounded-xl shadow-lg p-6 flex flex-col">
+             <h3 class="text-xl font-bold text-white mb-4">${p.title}</h3>
+             <div class="bg-gray-800 rounded-md p-4 text-sm font-mono overflow-x-auto h-64 flex-grow relative">
+                <p class="whitespace-pre-wrap"><strong class="text-yellow-400">Persona:</strong> ${p.persona}</p><br>
+                <p class="whitespace-pre-wrap"><strong class="text-green-400">Objective:</strong> ${p.objective}</p><br>
+                <p class="whitespace-pre-wrap"><strong class="text-cyan-400">Structure:</strong> ${p.structure}</p>
+             </div>
+             <button class="copy-btn mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300" data-index="${index}">Copiar Prompt</button>
+        </div>
+    `).join('');
+}
+
+// As you wish 1: Animate Gemini-style gauge for governance
+setTimeout(() => {
+    const fg = document.getElementById('gauge-fg-governance');
+    const label = document.getElementById('gauge-label-governance');
+    const percent = 35;
+    const totalLen = 314.159;
+    let current = 0;
+    const steps = 30;
+    let step = 0;
+    function animate() {
+        step++;
+        current = percent * (step / steps);
+        const offset = totalLen * (1 - current / 100);
+        fg.setAttribute('stroke-dashoffset', offset);
+        label.textContent = Math.round(current) + '%';
+        if (step < steps) {
+            requestAnimationFrame(animate);
+        } else {
+            fg.setAttribute('stroke-dashoffset', totalLen * (1 - percent / 100));
+            label.textContent = percent + '%';
+        }
     }
+    animate();
+}, 200);
 
-    function setupEventListeners() {
-        const educacionTab = document.getElementById('tab-educacion');
-        const finanzasTab = document.getElementById('tab-finanzas');
-        const educacionContent = document.getElementById('content-educacion');
-        const finanzasContent = document.getElementById('content-finanzas');
-
-        educacionTab.addEventListener('click', () => {
-            educacionTab.classList.add('tab-active');
-            educacionTab.classList.remove('tab-inactive');
-            finanzasTab.classList.add('tab-inactive');
-            finanzasTab.classList.remove('tab-active');
-            
-            educacionContent.classList.remove('hidden');
-            finanzasContent.classList.add('hidden');
-        });
-
-        finanzasTab.addEventListener('click', () => {
-            finanzasTab.classList.add('tab-active');
-            finanzasTab.classList.remove('tab-inactive');
-            educacionTab.classList.add('tab-inactive');
-            educacionTab.classList.remove('tab-active');
-
-            finanzasContent.classList.remove('hidden');
-            educacionContent.classList.add('hidden');
-        });
-
-        document.body.addEventListener('click', (e) => {
-            if (e.target.closest('.principle-card')) {
-                const card = e.target.closest('.principle-card');
-                const content = card.querySelector('.accordion-content');
-                content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
-            }
-            if (e.target.classList.contains('accordion-trigger')) {
-                const content = e.target.nextElementSibling;
-                const arrow = e.target.querySelector('span:last-child');
-                if (content.style.maxHeight) {
-                    content.style.maxHeight = null;
-                    arrow.style.transform = 'rotate(0deg)';
-                } else {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                    arrow.style.transform = 'rotate(-180deg)';
-                }
-            }
-            if(e.target.classList.contains('copy-btn')) {
-                const index = e.target.dataset.index;
-                const promptData = index == 0 ? AppData.education.prompt : AppData.finance.prompt;
-                const textToCopy = `Persona: ${promptData.persona}\n\nObjective: ${promptData.objective}\n\n${promptData.structure}`;
-                
-                navigator.clipboard.writeText(textToCopy).then(() => {
-                    e.target.textContent = '¡Copiado!';
-                    setTimeout(() => { e.target.textContent = 'Copiar Prompt'; }, 2000);
-                }).catch(err => {
-                    console.error('Error al copiar: ', err);
-                });
-            }
-        });
-    }
-
-    // Initial render
-    initChart();
+// As you wish 1: Render all dynamic content after DOM is ready
+function renderAll() {
     renderPrinciples();
     renderFrameworks();
     document.getElementById('content-educacion').innerHTML = renderSectorContent('education');
     document.getElementById('content-finanzas').innerHTML = renderSectorContent('finance');
     renderPrompts();
-    setupEventListeners();
+}
+renderAll();
+
+// As you wish 1: Setup tab logic to always show correct content
+const educacionTab = document.getElementById('tab-educacion');
+const finanzasTab = document.getElementById('tab-finanzas');
+const educacionContent = document.getElementById('content-educacion');
+const finanzasContent = document.getElementById('content-finanzas');
+
+educacionTab.addEventListener('click', () => {
+    educacionTab.classList.add('tab-active');
+    educacionTab.classList.remove('tab-inactive');
+    finanzasTab.classList.add('tab-inactive');
+    finanzasTab.classList.remove('tab-active');
+    educacionContent.classList.remove('hidden');
+    finanzasContent.classList.add('hidden');
+});
+finanzasTab.addEventListener('click', () => {
+    finanzasTab.classList.add('tab-active');
+    finanzasTab.classList.remove('tab-inactive');
+    educacionTab.classList.add('tab-inactive');
+    educacionTab.classList.remove('tab-active');
+    finanzasContent.classList.remove('hidden');
+    educacionContent.classList.add('hidden');
+});
+
+// As you wish 1: Accordion and copy logic
+document.body.addEventListener('click', (e) => {
+    if (e.target.closest('.principle-card')) {
+        const card = e.target.closest('.principle-card');
+        const content = card.querySelector('.accordion-content');
+        content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
+    }
+    if (e.target.classList.contains('accordion-trigger')) {
+        const content = e.target.nextElementSibling;
+        const arrow = e.target.querySelector('span:last-child');
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+            arrow.style.transform = 'rotate(0deg)';
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            arrow.style.transform = 'rotate(-180deg)';
+        }
+    }
+    if(e.target.classList.contains('copy-btn')) {
+        const index = e.target.dataset.index;
+        const promptData = index == 0 ? AppData.education.prompt : AppData.finance.prompt;
+        const textToCopy = `Persona: ${promptData.persona}\n\nObjective: ${promptData.objective}\n\n${promptData.structure}`;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            e.target.textContent = '¡Copiado!';
+            setTimeout(() => { e.target.textContent = 'Copiar Prompt'; }, 2000);
+        }).catch(err => {
+            console.error('Error al copiar: ', err);
+        });
+    }
 });
 </script>
 
