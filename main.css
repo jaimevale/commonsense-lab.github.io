@@ -27,7 +27,7 @@ body::before {
   width: 100vw;
   height: 100vh;
   background: #fff;
-  opacity: 0.15;
+  opacity: 0.25;
   pointer-events: none;
   z-index: 0;
 }
