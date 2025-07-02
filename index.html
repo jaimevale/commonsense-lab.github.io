@@ -9,259 +9,34 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/main.css">
     <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
-    <style>
-        :root {
-            --bg-color: #f0f2f5;
-            --card-bg: #ffffff;
-            --text-color: #1a202c;
-            --header-color: #001f3f;
-            --accent-color: #007BFF;
-            --accent-hover: #0056b3;
-            --timeline-past: #d4edda;
-            --timeline-present: #fff3cd;
-            --timeline-future: #f8d7da;
-        }
-
-        body {
-            font-family: 'Work Sans', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            overscroll-behavior-x: none;
-        }
-
-        #main-nav {
-            z-index: 1001; /* Higher than nav arrows */
-        }
-        .nav-link {
-            color: var(--header-color);
-            padding: 0.5rem;
-            border-bottom: 2px solid transparent;
-            transition: border-color 0.3s ease, color 0.3s ease;
-            font-weight: 500;
-        }
-        .nav-link:hover {
-            color: var(--accent-color);
-        }
-        .nav-link.active {
-            border-color: var(--accent-color);
-            font-weight: 700;
-            color: var(--accent-color);
-        }
-        
-        #main-container {
-            width: 800vw; /* 8 sections * 100vw */
-            height: 100vh;
-            display: flex;
-            flex-wrap: nowrap;
-        }
-
-        .page {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            position: relative;
-            background-size: cover;
-            background-position: center;
-            padding: 6rem 2rem 2rem 2rem; /* Added top padding for nav */
-            overflow-y: hidden; 
-        }
-        
-        .page-content-wrapper {
-             max-width: 1200px;
-             width: 100%;
-             height: 100%;
-             overflow-y: auto;
-             padding: 2rem;
-             -ms-overflow-style: none;
-             scrollbar-width: none;
-        }
-
-        .page-content-wrapper::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .card {
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-radius: 1rem;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
-
-        .nav-arrow {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 31, 63, 0.7);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.3s;
-        }
-        .nav-arrow:hover {
-            background-color: rgba(0, 123, 255, 0.9);
-        }
-        #nav-left { left: 20px; }
-        #nav-right { right: 20px; }
-
-        .page-title {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--header-color);
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        
-        /* Specific Page Backgrounds */
-        #home { background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop'); }
-        #vision { background-image: url('https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?q=80&w=2070&auto=format&fit=crop'); }
-        #collaboration { background-image: url('https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=2070&auto=format&fit=crop'); }
-        #topics { background-image: url('https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=2020&auto=format&fit=crop'); }
-        #structure { background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop'); }
-        #milestones { background-image: url('https://images.unsplash.com/photo-1497032628192-86f99079de7c?q=80&w=2070&auto=format&fit=crop'); }
-        #impact { background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2070&auto=format&fit=crop'); }
-        #contact { background-image: url('https://images.unsplash.com/photo-1556740772-1a741367b93e?q=80&w=2070&auto=format&fit=crop'); }
-
-        .page::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(240, 242, 245, 0.7);
-            z-index: 1;
-        }
-
-        .page > * {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Working Topics Page */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-        .project-card {
-            background: var(--card-bg);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .project-card:hover { transform: scale(1.03); }
-        .progress-bar { background-color: #e9ecef; border-radius: 0.25rem; overflow: hidden; }
-        .progress { background-color: var(--accent-color); }
-
-        /* As you wish 1: Modal overlay styles */
-        #project-modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0; top: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.4);
-            align-items: center;
-            justify-content: center;
-        }
-        #project-modal.active {
-            display: flex;
-        }
-        .tech-tag {
-            display: inline-block;
-            background: linear-gradient(90deg, #e5e7eb 60%, #f3f4f6 100%);
-            color: #374151;
-            font-size: 0.82rem;
-            font-weight: 500;
-            border-radius: 9999px;
-            padding: 0.18rem 0.75rem;
-            margin: 0 0.1rem 0.2rem 0;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-            border: 1px solid #e5e7eb;
-            transition: background 0.2s;
-            cursor: default;
-        }
-        .tech-tag:hover {
-            background: linear-gradient(90deg, #f3f4f6 60%, #e5e7eb 100%);
-        }
-        .technology-tag {
-            display: inline-block;
-            background: linear-gradient(90deg, #f1f3f6 0%, #e2e4e8 100%);
-            color: #444;
-            font-size: 0.85rem;
-            font-weight: 500;
-            border-radius: 999px;
-            padding: 0.25rem 0.75rem;
-            margin: 0 0.15rem 0.15rem 0;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-            border: 1px solid #e0e0e0;
-            transition: background 0.2s;
-            cursor: default;
-        }
-        .technology-tag:hover {
-            background: linear-gradient(90deg, #e2e4e8 0%, #f1f3f6 100%);
-        }
-    </style>
 </head>
-<body>
+<body style="background-image: url('https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=1500&q=80'); background-size: cover; background-position: center;">
     <nav id="main-nav" class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-md shadow-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <a href="#" class="flex items-center space-x-2 nav-link" data-index="0">
+                <a href="/index.html" class="flex items-center space-x-2 nav-link active" data-index="0">
                     <img src="/favicon-64x64.png" alt="CommonSense IA Lab Logo"  class="h-8 w-8">
                     <span class="font-bold text-xl text-blue-900 hidden sm:block">CommonSense AI Lab</span>
                 </a>
                 <div class="hidden md:flex items-center space-x-1 lg:space-x-4">
-                    <a href="#" class="nav-link" data-index="1">Vision & Values</a>
-                    <a href="#" class="nav-link" data-index="2">Collaboration</a>
-                    <a href="#" class="nav-link" data-index="3">Working Topics</a>
-                    <a href="#" class="nav-link" data-index="4">Lab Structure</a>
-                    <a href="#" class="nav-link" data-index="5">Approach</a>
-                    <a href="#" class="nav-link flex items-center gap-2" data-index="6"><i class="far fa-envelope"></i> Contact</a>
-                </div>
-                 <div class="md:hidden"> <!-- Mobile Menu Button -->
-                    <button id="mobile-menu-button" class="text-blue-900">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
+                    <a href="/vision.html" class="nav-link" data-index="1">Vision & Values</a>
+                    <a href="/collaboration.html" class="nav-link" data-index="2">Collaboration</a>
+                    <a href="/topics.html" class="nav-link" data-index="3">Working Topics</a>
+                    <a href="/structure.html" class="nav-link" data-index="4">Lab Structure</a>
+                    <a href="/impact.html" class="nav-link" data-index="5">Approach</a>
+                    <a href="/contact.html" class="nav-link flex items-center gap-2" data-index="6"><i class="far fa-envelope"></i> Contact</a>
                 </div>
             </div>
-        </div>
-         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="md:hidden hidden bg-white/90">
-            <a href="#" class="block py-2 px-4 text-sm nav-link" data-index="1">Vision & Values</a>
-            <a href="#" class="block py-2 px-4 text-sm nav-link" data-index="2">Collaboration</a>
-            <a href="#" class="block py-2 px-4 text-sm nav-link" data-index="3">Working Topics</a>
-            <a href="#" class="block py-2 px-4 text-sm nav-link" data-index="4">Lab Structure</a>
-            <a href="#" class="block py-2 px-4 text-sm nav-link" data-index="5">Approach</a>
-            <a href="#" class="block py-2 px-4 text-sm nav-link" data-index="7">Contact</a>
         </div>
     </nav>
     <div id="main-container" class="flex flex-col md:flex-row w-full h-full">
         <!-- Page 1: Home -->
-        <section id="home" class="page">
+        <section id="home" class="page" style="padding-top: 6rem;">
             <div class="page-content-wrapper text-center">
                 <h1 class="text-5xl md:text-6xl font-bold mb-4 text-blue-900">CommonSense AI Laboratory</h1>
                 <p class="text-xl md:text-2xl text-gray-600 mb-12">Advancing AI for Social Impact</p>
@@ -270,8 +45,7 @@
                         <h2 class="text-2xl font-bold mb-4 text-blue-800">Mission Statement</h2>
                         <p class="text-gray-700">
                             To build high-impact AI products that solve real-world challenges for society and organizations. We transform complex problems into <strong>simple, maintainable, and secure solutions</strong> through disciplined software engineering and open collaboration.
-                        </p><p class="text-gray-700"></p>
-
+                        </p>
                         <h3 style="margin-top:35px;" class="text-1xl font-bold mb-4 text-blue-700">Our Guiding Principles</h3>
                         <p class="text-gray-700">
                             Our work is governed by an unwavering commitment to the ethical and moral adoption of AI. We believe technology must serve humanity, not the other way around.
@@ -287,438 +61,34 @@
                         <p class="text-gray-700"><strong>CommonSense AI</strong> is an open, collaborative AI laboratory focused on transforming our clients' ideas into <strong>actionable, socially impactful products</strong>. Guided by a mission of <strong>simplicity, quality, and real-world results</strong>, we help organizations identify, understand, and execute the right solutions for them.<br/>
                         We believe the true objective is not AI for its own sake, but to create powerful solutions that new AI capabilities finally make possible. While we provide cutting-edge artificial intelligence technology, we always operate within a disciplined software engineering model designed for product development. This approach ensures our clients move beyond prototypes and grand ideas to achieve tangible realizations.<br/>
                         With deep experience in creating digital products, we partner with clients to deliver end-to-end strategy and technology services. We are committed to taking your vision from idea to a fully realized product</p>
-                        <button id="to-topics-btn" class="mt-6 bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300">Explore Working Topics</button>
+                        <a href="/topics.html" class="mt-6 bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300 inline-block">Explore Working Topics</a>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Page 2: Vision, Values, Governance -->
-        <section id="vision" class="page">
-            <div class="page-content-wrapper">
-                <h1 class="page-title">Vision, Values, and Governance</h1>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="card">
-                        <h2 class="text-2xl font-bold mb-4 text-blue-800">Vision</h2>
-                        <p>To be a catalyst for socially impactful AI solutions, transforming complex challenges into simple, actionable products for society and organizations.</p>
-                    </div>
-                    <div class="card">
-                        <h2 class="text-2xl font-bold mb-4 text-blue-800">Values</h2>
-                        <ul class="list-disc list-inside text-gray-700 space-y-2">
-                            <li>Social impact and responsibility</li>
-                            <li>Simplicity and tangibility in results</li>
-                            <li>Collaboration and openness</li>
-                            <li>Product excellence and maintainability</li>
-                            <li>Security and quality in software and AI engineering</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h2 class="text-2xl font-bold mb-4 text-blue-800">Ethics & Governance</h2>
-                        <ul class="list-disc list-inside text-gray-700 space-y-2">
-                             <li>Ensure clear accountability to humans in the loop for all AI-driven processes.</li>
-                             <li>Maintain a code of ethics with ongoing participatory review.</li>
-                             <li>Safeguard data privacy, mitigate bias, and ensure transparent documentation.</li>
-                             <li>Engage an ethics board with representatives from key partner organizations.</li>
-                        </ul>
-                        <button id="to-governance-btn" class="mt-6 bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300">AI Governance Tools</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Page 3: Open Collaboration -->
-        <section id="collaboration" class="page">
-            <div class="page-content-wrapper">
-                 <div class="card max-w-4xl mx-auto">
-                    <h1 class="page-title">Open Collaboration</h1>
-                    <p class="text-lg text-gray-800 mb-4">Proactively collaborate with:</p>
-                    <ul class="list-disc list-inside text-gray-700 space-y-3 text-lg">
-                        <li>Other research labs, universities, hospitals, and tech companies.</li>
-                        <li>Organizations and communities focused on AI governance, ethics, and technology advancement.</li>
-                        <li>Stakeholders and end-users to ensure solutions are relevant and responsible.</li>
-                    </ul>
-                    <p class="text-lg text-gray-800 mt-6">Foster synergistic relationships to co-create, validate, and scale impactful AI products.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Page 4: Working Topics -->
-        <section id="topics" class="page">
-            <div class="page-content-wrapper">
-                <h1 class="page-title">Working Topics</h1>
-                <div class="mb-8 p-4 bg-white/80 backdrop-blur-sm rounded-lg shadow-md">
-                    <div class="flex flex-wrap gap-4 items-center">
-                        <span class="font-bold">Filter by:</span>
-                        <button class="filter-btn bg-blue-500 text-white px-4 py-2 rounded-full" data-filter="all">All</button>
-                        <button class="filter-btn bg-white text-gray-700 px-4 py-2 rounded-full" data-filter="Healthcare">Healthcare</button>
-                        <button class="filter-btn bg-white text-gray-700 px-4 py-2 rounded-full" data-filter="Education">Education</button>
-                        <button class="filter-btn bg-white text-gray-700 px-4 py-2 rounded-full" data-filter="Business">Business</button>
-                    </div>
-                </div>
-                <div id="project-grid" class="project-grid">
-                    <!-- Projects will be injected here by JS -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Page 5: Lab Structure and Roadmap -->
-        <section id="structure" class="page">
-             <div class="page-content-wrapper">
-                <h1 class="page-title">Lab Structure and Roadmap</h1>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="card">
-                        <h2 class="text-2xl font-bold mb-4 text-blue-800">Partnerships</h2>
-                        <p>Build strong alliances with research bodies, universities, hospitals, tech companies, and relevant organizations for collaborative research and pilot deployments.</p>
-                    </div>
-                    <div class="card">
-                         <h2 class="text-2xl font-bold mb-4 text-blue-800">Infrastructure</h2>
-                        <p>Leverage existing infrastructure in Colombia, including technology parks, university platforms, and cloud environments to maximize efficiency and scalability.</p>
-                    </div>
-                    <div class="card" id="rd-phases">
-                        <h2 class="text-2xl font-bold mb-4 text-blue-800">R&D Phases</h2>
-                        <div class="space-y-4">
-                            <div class="flex items-center gap-4 phase"><i class="fas fa-search text-2xl text-blue-600 w-8 text-center"></i><p><strong>Exploration:</strong> Literature reviews, needs assessments, stakeholder interviews.</p></div>
-                            <div class="flex items-center gap-4 phase"><i class="fas fa-drafting-compass text-2xl text-blue-600 w-8 text-center"></i><p><strong>Prototyping:</strong> Rapidly develop and test AI prototypes.</p></div>
-                            <div class="flex items-center gap-4 phase"><i class="fas fa-vials text-2xl text-blue-600 w-8 text-center"></i><p><strong>Pilot Testing:</strong> Deploy prototypes with partners and iterate.</p></div>
-                            <div class="flex items-center gap-4 phase"><i class="fas fa-clipboard-check text-2xl text-blue-600 w-8 text-center"></i><p><strong>Evaluation:</strong> Assess social impact, usability, and effectiveness.</p></div>
-                             <div class="flex items-center gap-4 phase"><i class="fas fa-chart-line text-2xl text-blue-600 w-8 text-center"></i><p><strong>Scaling:</strong> Refine successful solutions and expand adoption.</p></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Page 6: Impact Assessment -->
-        <section id="impact" class="page">
-            <div class="page-content-wrapper">
-                 <h1 class="page-title">Approach & Continuous Learning</h1>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="card">
-                        <h2 class="text-2xl font-bold mb-4 text-blue-800">Our Approach</h2>
-                        <ul class="list-disc list-inside text-gray-700 space-y-3">
-                        Our engagement model is an <strong>outcome-driven approach</strong> designed to ensure our partnership delivers measurable, sustainable, and aligned value. We move beyond traditional project delivery to create a holistic experience focused on this core layers of commitment and results for our clients 
-                        <ul>
-                            <li>
-                                <h3 class="font-bold mb-4">1. Deliver High-Impact Solutions</h3>
-                                <p>Our primary focus is turning your ideas and initiatives into fully realized products. We work with you to <strong>transform concepts into actionable, secure, and high-quality software</strong>. We don’t want our clients stuck with prototypes; we are committed to moving <strong>from great ideas to real-world impact</strong>, ensuring that project outcomes are directly aligned with your strategic business goals.</p>
-                            </li>
-                            <li>
-                                <h3 class="font-bold mb-4">2. Develop Your People and Culture</h3>
-                                <p>True transformation requires more than just technology—it requires empowered people. We provide targeted <strong>workshops and seminars to build a robust internal AI culture</strong>. Our goal is to develop your team’s knowledge, helping them understand how new AI capabilities can drive strategy and be applied to concrete use cases. This intentional focus on growth ensures your organization is prepared to manage and evolve the solution long after our engagement ends, avoiding team disconnection.</p>
-                            </li>
-                            <li>
-                                <h3 class="font-bold mb-4">3. Drive Collaborative Ecosystems</h3>
-                                <p>We believe progress is accelerated through teamwork. We create dynamic environments for <strong>collaboration with other companies and institutions</strong>, fostering a network that allows everyone to adopt the new mental models required for AI solutions. This process is always grounded in human common sense: we build AI to augment, not replace, human ingenuity. Through <strong>participatory evaluation and ongoing feedback loops</strong>, we build lasting relationships and ensure solutions deliver genuine social and business value.</p>
-                            </li>
-                        </ul>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd-ziX1A2qqQX3QjhYqDoegAS5TvizqQiPorGiMHRxmWB_v3w/viewform?embedded=true" width="488" height="900" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Page 7: Contact -->
-        <section id="contact" class="page">
-            <div class="page-content-wrapper">
-                 <div class="card max-w-2xl mx-auto">
-                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdZG1w35p-n52SFhcIN6KEMO3neK9xi-2wXMLYpmLJcyWgQYQ/viewform?embedded=true" width="600" height="580" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-                    <div id="form-feedback" class="mt-4 text-center"></div>
                 </div>
             </div>
         </section>
     </div>
 
     <!-- Navigation Arrows -->
-    <button id="nav-left" class="nav-arrow" aria-label="Previous Page"><i class="fas fa-arrow-left"></i></button>
-    <button id="nav-right" class="nav-arrow" aria-label="Next Page"><i class="fas fa-arrow-right"></i></button>
+    <!-- Removed nav arrows as per change request -->
 
     <!-- Project Modal -->
-    <div id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-        <div id="project-modal-content" class="card max-w-3xl w-11/12 max-h-[90vh] overflow-y-auto relative">
-             <button id="modal-close-btn" class="absolute top-4 right-4 text-2xl text-gray-600 hover:text-red-500" aria-label="Close project details">&times;</button>
-        </div>
-    </div>
+    <!-- Removed project modal as per change request -->
     
     <script>
+    // As you wish 1: Remove broken JS for multi-section navigation and modal logic, only keep code needed for home page
+    // Remove nav arrow logic and modal logic, and fix nav-link highlighting for static navigation
+
     document.addEventListener('DOMContentLoaded', () => {
-        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-        
-        const mainContainer = document.getElementById('main-container');
-        const pages = document.querySelectorAll('.page');
-        const navLeft = document.getElementById('nav-left');
-        const navRight = document.getElementById('nav-right');
-        const toTopicsBtn = document.getElementById('to-topics-btn');
+        // Highlight current nav-link based on URL
         const navLinks = document.querySelectorAll('.nav-link');
-        let currentPage = 0;
-        const totalPages = pages.length;
-
-        // Horizontal scrolling
-        let tween = gsap.to(pages, {
-            xPercent: -100 * (totalPages - 1),
-            ease: "none",
-            scrollTrigger: {
-                trigger: mainContainer,
-                pin: true,
-                scrub: 1,
-                snap: {
-                    snapTo: 1 / (totalPages - 1),
-                    duration: {min: 0.2, max: 0.5},
-                    ease: "power1.inOut"
-                },
-                end: () => "+=" + mainContainer.offsetWidth
-            }
-        });
-        
-        function goToPage(pageIndex) {
-            if(pageIndex < 0 || pageIndex >= totalPages) return;
-            gsap.to(window, {
-                scrollTo: { y: pageIndex * (document.documentElement.scrollHeight / totalPages) }, 
-                duration: 1, 
-                ease: "power2.inOut"
-            });
-        }
-        
-        function updateActiveLink(index) {
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (parseInt(link.dataset.index) === index) {
-                    link.classList.add('active');
-                }
-            });
-        }
-
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
         navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const index = parseInt(link.dataset.index);
-                goToPage(index);
-                // For mobile menu, close it on click
-                const mobileMenu = document.getElementById('mobile-menu');
-                if(mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                }
-                // Remove focus to prevent accidental navigation
-                link.blur();
-                return false;
-            });
-        });
-
-        navLeft.addEventListener('click', () => goToPage(currentPage - 1));
-        navRight.addEventListener('click', () => goToPage(currentPage + 1));
-        toTopicsBtn.addEventListener('click', () => goToPage(3)); // Go to Working Topics page
-
-        // GSAP Animations for elements
-        pages.forEach((page, i) => {
-            ScrollTrigger.create({
-                trigger: page,
-                containerAnimation: tween,
-                start: "left center",
-                end: "right center",
-                onEnter: () => { currentPage = i; updateActiveLink(i); },
-                onEnterBack: () => { currentPage = i; updateActiveLink(i); },
-            });
-
-            const cards = page.querySelectorAll('.card');
-            gsap.from(cards, {
-                scrollTrigger: {
-                    trigger: page,
-                    containerAnimation: tween,
-                    start: 'left 80%',
-                },
-                opacity: 0,
-                y: 0,
-                stagger: 0.2,
-                duration: 0.8
-            });
-        });
-
-        updateActiveLink(0); // Set initial active link
-        
-        // Mobile Menu Toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        });
-        
-        // R&D Phases animation
-        const rdPhases = document.querySelectorAll('#rd-phases .phase');
-        gsap.from(rdPhases, {
-            scrollTrigger: {
-                trigger: '#structure',
-                containerAnimation: tween,
-                start: 'left 60%',
-            },
-            opacity: 0,
-            x: -50,
-            stagger: 0.3,
-            duration: 1
-        });
-
-        // --- Working Topics Data and Logic ---
-        let projects = [];
-        const projectGrid = document.getElementById('project-grid');
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const modal = document.getElementById('project-modal');
-        const modalContent = document.getElementById('project-modal-content');
-        const modalCloseBtn = document.getElementById('modal-close-btn');
-
-        function renderProjects(filter = 'all') {
-            projectGrid.innerHTML = '';
-            const filteredProjects = filter === 'all' ? projects : projects.filter(p => p.category === filter);
-            filteredProjects.forEach((p, i) => {
-                const card = document.createElement('div');
-                card.className = 'project-card';
-                card.dataset.id = p.id;
-                card.innerHTML = `
-                    <h3 class="text-xl font-bold mb-2">${p.title}</h3>
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-sm font-semibold text-blue-600">${p.category}</span>
-                        <span class="text-xs px-2 py-1 rounded-full ${p.status === 'Active' ? 'bg-yellow-200 text-yellow-800' : p.status === 'Completed' ? 'bg-green-200 text-green-800' : 'bg-gray-200 text-gray-800'}">${p.status}</span>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-4">${p.description.substring(0, 80)}...</p>
-                    <div class="progress-bar w-full h-2">
-                        <svg width="100%" height="8" viewBox="0 0 100 8" preserveAspectRatio="none" style="display:block;">
-                        <defs>
-                            <linearGradient id="gemini-bar-gradient" x1="0" y1="0" x2="1" y2="0">
-                                <stop offset="0%" stop-color="#4f8cff"/>
-                                <stop offset="50%" stop-color="#7b61ff"/>
-                                <stop offset="100%" stop-color="#00e0e0"/>
-                            </linearGradient>
-                        </defs>
-                        <rect x="0" y="0" width="100" height="8" rx="4" fill="#e9ecef"/>
-                        <rect x="0" y="0" width="${p.progress}" height="8" rx="4" fill="url(#gemini-bar-gradient)"/>
-                        </svg>
-                    </div>
-                `;
-                card.addEventListener('click', function() {
-                    openProjectModal(p.id);
-                });
-                projectGrid.appendChild(card);
-            });
-        }
-
-        function openProjectModal(projectId) {
-            // As you wish 1: Ensure projectId is a number for strict comparison
-            const project = projects.find(p => String(p.id) === String(projectId));
-            if (!project) return;
-            modalContent.innerHTML = `
-                <button id=\"modal-close-btn-inner\" class=\"absolute top-4 right-4 text-2xl text-gray-600 hover:text-red-500\" aria-label=\"Close project details\">&times;</button>
-                <h2 id=\"modal-title\" class=\"text-3xl font-bold mb-4 text-blue-900\">${project.title}</h2>
-                <div class=\"flex flex-row gap-8\">
-                    <!-- Left: Category and Description (75%) -->
-                    <div class=\"w-3/4\">
-                        <div class=\"flex justify-between items-center mb-4\">
-                            <span class=\"text-lg font-semibold text-blue-600\">${project.category}</span>
-                            <span class=\"text-md px-3 py-1 rounded-full ${project.status === 'Active' ? 'bg-yellow-200 text-yellow-800' : project.status === 'Completed' ? 'bg-green-200 text-green-800' : 'bg-gray-200 text-gray-800'}\">${project.status}</span>
-                        </div>
-                        <p class=\"text-gray-700 mb-6\">${project.description}</p>
-                        ${project.url ? `<button id=\"go-to-notes-btn\" class=\"mt-2 bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300\">Go to research notes</button>` : ''}
-                    </div>
-                    <!-- Right: Technologies and Progress (25%) -->
-                    <div class=\"w-1/4 flex flex-col items-center\">
-                        <h4 class=\"font-bold mb-2\">Technologies:</h4>
-                        <div class=\"flex flex-wrap gap-2 mb-6 justify-center\">
-                            ${project.technologies.map(t => `<span class=\"technology-tag\">${t}</span>`).join('')}
-                        </div>
-                        <h4 class=\"font-bold mb-2\">Progress:</h4>
-                        <div class=\"flex flex-col items-center mb-4\">
-                            <svg id=\"progress-gauge\" width=\"120\" height=\"120\" viewBox=\"0 0 120 120\">
-                                <defs>
-                                    <linearGradient id=\"gemini-gradient\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">
-                                        <stop offset=\"0%\" stop-color=\"#4f8cff\"/>
-                                        <stop offset=\"50%\" stop-color=\"#7b61ff\"/>
-                                        <stop offset=\"100%\" stop-color=\"#00e0e0\"/>
-                                    </linearGradient>
-                                </defs>
-                                <circle cx=\"60\" cy=\"60\" r=\"50\" fill=\"none\" stroke=\"#e5e7eb\" stroke-width=\"14\"/>
-                                <circle id=\"gauge-fg\" cx=\"60\" cy=\"60\" r=\"50\" fill=\"none\" stroke=\"url(#gemini-gradient)\" stroke-width=\"14\" stroke-linecap=\"round\" stroke-dasharray=\"314.159\" stroke-dashoffset=\"314.159\" transform=\"rotate(-90 60 60)\"/>
-                                <text id=\"gauge-label\" x=\"60\" y=\"68\" text-anchor=\"middle\" font-size=\"22\" fill=\"#1e293b\" font-weight=\"bold\">0%</text>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            `;
-            modal.classList.add('active');
-            document.getElementById('modal-close-btn-inner').addEventListener('click', () => modal.classList.remove('active'));
-            // As you wish 1: Animate the full circle gauge (progress arc and label only)
-            setTimeout(() => {
-                const fg = document.getElementById('gauge-fg');
-                const label = document.getElementById('gauge-label');
-                const percent = Math.max(0, Math.min(100, project.progress));
-                const totalLen = 314.159; // Circumference for r=50
-                let current = 0;
-                const steps = 30;
-                let step = 0;
-                function animate() {
-                    step++;
-                    current = percent * (step / steps);
-                    const offset = totalLen * (1 - current / 100);
-                    fg.setAttribute('stroke-dashoffset', offset);
-                    label.textContent = Math.round(current) + '%';
-                    if (step < steps) {
-                        requestAnimationFrame(animate);
-                    } else {
-                        fg.setAttribute('stroke-dashoffset', totalLen * (1 - percent / 100));
-                        label.textContent = percent + '%';
-                    }
-                }
-                animate();
-            }, 100);
-            // As you wish 1: Add event for research notes button if present
-            if (project.url) {
-                const notesBtn = document.getElementById('go-to-notes-btn');
-                if (notesBtn) {
-                    notesBtn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        window.open(project.url, '_blank');
-                    });
-                }
+            const href = link.getAttribute('href');
+            if (href && href.endsWith(currentPath)) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
             }
-        }
-        // As you wish 1: Expose openProjectModal globally so project cards can call it
-        window.openProjectModal = openProjectModal;
-
-        modalCloseBtn.addEventListener('click', () => modal.classList.remove('active'));
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-            }
-        });
-
-        // As you wish 1: Only set up filter buttons and render after projects are loaded
-        function setupProjectFiltersAndRender() {
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    filterBtns.forEach(b => b.classList.replace('bg-blue-500', 'bg-white') & b.classList.replace('text-white', 'text-gray-700'));
-                    btn.classList.replace('bg-white', 'bg-blue-500');
-                    btn.classList.replace('text-gray-700', 'text-white');
-                    renderProjects(btn.dataset.filter);
-                });
-            });
-            renderProjects();
-        }
-
-        // As you wish 1: Load projects.json asynchronously and initialize
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', '/projects.json', true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                try {
-                    projects = JSON.parse(xhr.responseText);
-                } catch (e) {
-                    projects = [];
-                }
-                setupProjectFiltersAndRender();
-            }
-        };
-        xhr.send();
-
-        // Find the button to-governance-btn
-        const govIaBtns = document.getElementById('to-governance-btn');
-        govIaBtns.addEventListener('click', () => {
-            window.open('/governance.html', '_blank');
         });
     });
     </script>
