@@ -174,3 +174,24 @@ body.topics-bg {
     flex-basis: 100%;
   }
 }
+
+/* As you wish 1: Custom styles for category filter buttons in topics.html */
+.category-btn {
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  border: 1px solid #cbd5e1;
+  background: #f3f4f6;
+  color: #60a5fa;
+  margin: 0 0.25rem 0.5rem 0;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+}
+.category-btn:hover {
+  background: #e5e7eb;
+}
+.category-btn.active {
+  background: #fff;
+  color: #1d4ed8;
+  border-color: #60a5fa;
+}

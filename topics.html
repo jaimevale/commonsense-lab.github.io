@@ -39,18 +39,22 @@
                 <h2 class="text-2xl font-bold mb-4 text-blue-800">Project Topics</h2>
                 <p class="text-gray-700">Explore our current research and development topics in healthcare, education, and business. Click on a project to learn more about its goals, technologies, and progress.</p>
             </div>
+            <div id="category-filters" class="flex flex-wrap gap-3 mb-8 justify-center"></div>
             <div id="project-grid" class="project-grid"></div>
         </div>
     </section>
     <script>
-    // As you wish 1: Topics page logic for loading and rendering projects and modal
+    // As you wish 1: Topics page logic for loading and rendering projects and modal, now with category filter buttons
     document.addEventListener('DOMContentLoaded', () => {
         let projects = [];
+        let filteredCategory = 'All';
         const projectGrid = document.getElementById('project-grid');
+        const categoryFilters = document.getElementById('category-filters');
         // Render project cards
         function renderProjects() {
             projectGrid.innerHTML = '';
-            projects.forEach((p) => {
+            let filtered = filteredCategory === 'All' ? projects : projects.filter(p => p.category === filteredCategory);
+            filtered.forEach((p) => {
                 const card = document.createElement('div');
                 card.className = 'project-card';
                 card.innerHTML = `
@@ -78,6 +82,23 @@
                     openProjectModal(p);
                 });
                 projectGrid.appendChild(card);
+            });
+        }
+        // Render category filter buttons
+        function renderCategoryFilters() {
+            const categories = Array.from(new Set(projects.map(p => p.category)));
+            categoryFilters.innerHTML = '';
+            const allBtn = document.createElement('button');
+            allBtn.textContent = 'All';
+            allBtn.className = 'category-btn' + (filteredCategory === 'All' ? ' active' : '');
+            allBtn.onclick = () => { filteredCategory = 'All'; renderCategoryFilters(); renderProjects(); };
+            categoryFilters.appendChild(allBtn);
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.textContent = cat;
+                btn.className = 'category-btn' + (filteredCategory === cat ? ' active' : '');
+                btn.onclick = () => { filteredCategory = cat; renderCategoryFilters(); renderProjects(); };
+                categoryFilters.appendChild(btn);
             });
         }
         // Modal logic
@@ -168,6 +189,7 @@
         // Load projects.json
         fetch('/projects.json').then(r => r.json()).then(data => {
             projects = data;
+            renderCategoryFilters();
             renderProjects();
         });
     });
