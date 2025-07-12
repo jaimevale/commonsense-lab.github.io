@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constitución Interactiva de Gobernanza de IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png">
+    <style>
+        :root {
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-color: #1a202c;
+            --header-color: #001f3f;
+            --accent-color: #007BFF;
+            --accent-hover: #0056b3;
+        }
+        body {
+            font-family: 'Work Sans', 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            overscroll-behavior-x: none;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        .page-title, h1, h2, h3, h4 {
+            color: var(--header-color);
+            font-family: 'Work Sans', 'Inter', sans-serif;
+        }
+        .tab-active {
+            background: linear-gradient(90deg, #4f8cff 0%, #7b61ff 50%, #00e0e0 100%);
+            color: #fff !important;
+            font-weight: 700;
+            border-radius: 1rem 1rem 0 0;
+            box-shadow: 0 -2px 8px rgba(79,140,255,0.08);
+            border-bottom: 2px solid var(--accent-color);
+            z-index: 2;
+            position: relative;
+        }
+        .tab-inactive {
+            background: #f3f4f6;
+            color: #6b7280;
+            border-radius: 1rem 1rem 0 0;
+            border-bottom: 2px solid transparent;
+            z-index: 1;
+            position: relative;
+        }
+        .tab-btn {
+            transition: background 0.2s, color 0.2s;
+            padding: 0.75rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0.25rem;
+            outline: none;
+            border: none;
+            cursor: pointer;
+        }
+        .tab-btn:focus {
+            box-shadow: 0 0 0 2px #4f8cff33;
+        }
+        .tab-bar {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            background: transparent;
+            border-bottom: 2px solid #e5e7eb;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        /* Gauge Gemini Gradient */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 320px;
+        }
+        #governanceChartGemini {
+            display: block;
+            margin: 0 auto;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        /* Tag styles for frameworks, principles, etc. */
+        .tech-tag, .technology-tag {
+            display: inline-block;
+            background: linear-gradient(90deg, #e5e7eb 60%, #f3f4f6 100%);
+            color: #374151;
+            font-size: 0.82rem;
+            font-weight: 500;
+            border-radius: 9999px;
+            padding: 0.18rem 0.75rem;
+            margin: 0 0.1rem 0.2rem 0;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            border: 1px solid #e5e7eb;
+            transition: background 0.2s;
+            cursor: default;
+        }
+        .tech-tag:hover, .technology-tag:hover {
+            background: linear-gradient(90deg, #f3f4f6 60%, #e5e7eb 100%);
+        }
+        /* Responsive container */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        /* Section backgrounds */
+        section {
+            background: rgba(255,255,255,0.8);
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        /* Button styles */
+        button, .btn {
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+        button:hover, .btn:hover {
+            background-color: var(--accent-hover);
+        }
+        /* List styles */
+        ul {
+            list-style-type: disc;
+            margin-left: 1.5em;
+        }
+        /* Headings */
+        h1, h2, h3, h4 {
+            font-family: 'Work Sans', 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+<nav id="main-nav" class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-md shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="/index.html" class="flex items-center space-x-2 nav-link" data-index="0">
+                    <img src="/favicon-64x64.png" alt="CommonSense IA Lab Logo"  class="h-8 w-8">
+                    <span class="font-bold text-xl text-blue-900 hidden sm:block">CommonSense AI Lab</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-1 lg:space-x-4">
+                    <a href="/vision.html" class="nav-link" data-index="1">Vision & Values</a>
+                    <a href="/collaboration.html" class="nav-link" data-index="2">Collaboration</a>
+                    <a href="/topics.html" class="nav-link" data-index="3">Working Topics</a>
+                    <a href="/structure.html" class="nav-link" data-index="4">Lab Structure</a>
+                    <a href="/impact.html" class="nav-link" data-index="5">Approach</a>
+                    <a href="/contact.html" class="nav-link flex items-center gap-2" data-index="6"><i class="far fa-envelope"></i> Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-7xl" style="margin-top: 4.5rem;">
+
+        <header class="text-center mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Elaboración de una Constitución para la IA</h1>
+            <p class="text-lg text-gray-600">Una guía interactiva para la gobernanza de la Inteligencia Artificial en Educación y Finanzas.</p>
+            <div class="max-w-2xl mx-auto mt-6">
+                <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-900 p-5 rounded-lg shadow-md flex items-start gap-3">
+                <span class="mt-1">
+                    <svg class="w-6 h-6 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 8a6 6 0 11-12 0 6 6 0 0112 0zm-6-8a8 8 0 100 16 8 8 0 000-16zm.75 12.25a.75.75 0 01-1.5 0v-1.5a.75.75 0 011.5 0v1.5zm0-3.5a.75.75 0 01-1.5 0v-4a.75.75 0 011.5 0v4z" clip-rule="evenodd"/>
+                    </svg>
+                </span>
+                <div>
+                    <strong>Acuerdo de Entendimiento:</strong>
+                    <p class="mt-1">
+                        Nuestras propuestas de documentos de trabajo y consultorías reconocen que los textos estáticos ya no son consistentes con el paradígma de trabajo en entorno IA. En muchas de las actividades que proponemos, el aporte de modelos LLM puede mejorar el resultado final esperado.<br><br>
+                        Proponemos un <strong>PROMPT</strong> (generado dinámicamente por nuestro código) que debe ser ejecutado en el modelo que tenga a disposición el cliente: copie el prompt en ChatGPT, MS Copilot, Gemini o en el modelo que tenga a disposición. Más que esperar una respuesta inmediata, inicie una conversación interactiva con el modelo para mejorar la respuesta. Más que prompts perfectos, creemos en una <i>Ingeniería de Contexto</i> que propone respuestas en base a una iteración que logra un mejor entendimiento de las necesidades.
+                    </p>
+                </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section id="introduction" class="mb-16 bg-white p-8 rounded-xl shadow-sm">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4 text-center">La Brecha Crítica en la Gobernanza de la IA</h2>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="text-gray-700 space-y-4">
+                        <p>La adopción de la Inteligencia Artificial avanza a un ritmo increible (<a href="https://www.bondcap.com/report/pdf/Trends_Artificial_Intelligence.pdf" target="_blank">Mary Meeker Report</a>), pero la creación de marcos de gobernanza formales no logran ir a la velocidad de las nuevas capacidades que IA está proponiendo. Las organizaciones se exponen a riesgos significativos sin una "Constitución de IA" clara que defina el uso ético y responsable de estas poderosas herramientas.</p>
+                        <p>Este documento interactivo traduce un análisis experto en un plan de acción, sintetizando los principales marcos globales y aplicándolos a algunaos de los desafíos únicos de los sectores de la educación y las finanzas.</p>
+                    </div>
+                    <div>
+                        <div class="chart-container">
+                            <svg id="governanceChartGemini" width="220" height="220" viewBox="0 0 120 120">
+                                <defs>
+                                    <linearGradient id="gemini-gauge-gradient" x1="0" y1="0" x2="1" y2="1">
+                                        <stop offset="0%" stop-color="#4f8cff"/>
+                                        <stop offset="50%" stop-color="#7b61ff"/>
+                                        <stop offset="100%" stop-color="#00e0e0"/>
+                                    </linearGradient>
+                                </defs>
+                                <circle cx="60" cy="60" r="50" fill="none" stroke="#e5e7eb" stroke-width="14"/>
+                                <circle id="gauge-fg-governance" cx="60" cy="60" r="50" fill="none" stroke="url(#gemini-gauge-gradient)" stroke-width="8" stroke-linecap="round" stroke-dasharray="314.159" stroke-dashoffset="314.159" transform="rotate(-90 60 60)"/>
+                                <text id="gauge-label-governance" x="60" y="68" text-anchor="middle" font-size="14" fill="#1e293b" font-weight="bold">0%</text>
+                            </svg>
+                        </div>
+                        <p class="text-center text-sm text-gray-500 mt-2">Solo el 35% de las empresas tiene un marco de gobernanza de IA.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="global-consensus" class="mb-16">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Pilares de la IA Confiable: Un Consenso Global</h2>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">A nivel mundial, existe un consenso sobre los principios fundamentales que deben guiar el desarrollo y despliegue de la IA. Estos pilares forman la base de cualquier marco de gobernanza sólido. Haga clic en cada principio para explorar su significado.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Principles will be injected by JS -->
+                </div>
+            </section>
+
+            <section id="frameworks-comparison" class="mb-16">
+                <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">Análisis de los Marcos Globales de Gobernanza</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
+                    <!-- Framework cards will be injected by JS -->
+                </div>
+            </section>
+
+            <section id="sector-specific" class="bg-white p-6 sm:p-8 rounded-xl shadow-sm">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Marcos de Gobernanza por Sector</h2>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">La aplicación de los principios de la IA varía significativamente según el contexto: ¿qué tipo de empresa?, ¿cuáles productos de IA se quieren ofrecer?, ¿los productos IA son para empleados, para clientes, para colaboradores?. El presente documento plantea prompts de creación de constituciones de governanza IA para los sectores de Educación y Financiero. Esperamos que este trabajo sirva como inicio de una conversación que ayude a identificar riesgos específicos, las oportunidades y un plan de gobernanza base, que sea punto de partida para un trabajo de especificación de constitución de gobierno IA. <strong>CommonSense Lab</strong> está disponible para ayudar a concretar esta conversación, de forma que su organización logre un concreto modelo de gobernanza AI. Ayudamos en la implantación del modelo de gobierno IA y del manejo de los riesgos identificados, logrando un programa real requerido para la adopción segura de IA. Nuestro laboratorio también ha avanzado en modelos para Gobierno IA en Salud y aprendizaje apoyado por IA en ciencias de la Salud.</p>
+                
+                <div class="border-b border-gray-200 mb-8">
+                    <nav class="tab-bar" aria-label="Tabs">
+                        <button id="tab-educacion" class="tab-btn tab-active">Educación</button>
+                        <button id="tab-finanzas" class="tab-btn tab-inactive">Servicios Financieros</button>
+                    </nav>
+                </div>
+
+                <div id="content-educacion">
+                    <!-- Education content will be injected by JS -->
+                </div>
+                <div id="content-finanzas" class="hidden">
+                    <!-- Finance content will be injected by JS -->
+                </div>
+            </section>
+            
+            <section id="prompts" class="mt-16">
+                 <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Genere su Constitución de IA: Prompts Maestros</h2>
+                 <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">Utilice estos prompts maestros, para generar un borrador de una constitución de IA para su organización. Estos prompts instruyen a la IA para que base su respuesta en los marcos globales clave, garantizando un resultado robusto y alineado con las mejores prácticas.</p>
+                 <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Prompts will be injected by JS -->
+                 </div>
+            </section>
+
+        </main>
+        
+        <footer class="text-center mt-16 pt-8 border-t border-gray-200">
+            <p class="text-sm text-gray-500">Aplicación interactiva CommonSense generada a partir del informe "Elaboración de una Constitución para la Inteligencia Artificial".</p>
+        </footer>
+
+    </div>
+
+<script>
+const AppData = {
+    principles: [
+        { name: 'Beneficencia y No Maleficencia', icon: '🕊️', description: 'Garantizar que la IA promueva el bienestar humano y la sostenibilidad, mientras se previene y mitiga activamente el daño. Requiere Evaluaciones de Impacto Ético (EIE) antes del despliegue.' },
+        { name: 'Justicia y Equidad', icon: '⚖️', description: 'Exigir que los sistemas de IA traten a las personas de forma equitativa y no perpetúen ni exacerben los sesgos sociales existentes, especialmente en datos de entrenamiento.' },
+        { name: 'Transparencia y Explicabilidad', icon: '🔍', description: 'Asegurar que el funcionamiento y las decisiones de la IA sean comprensibles. Esto incluye informar sobre el uso de la IA (transparencia) y proporcionar razones claras para sus resultados (explicabilidad).' },
+        { name: 'Responsabilidad y Rendición de Cuentas', icon: '🫆', description: 'Atribuir claramente la responsabilidad por los resultados de la IA a lo largo de su ciclo de vida. La responsabilidad humana final nunca puede delegarse en una máquina.' },
+        { name: 'Privacidad y Gobernanza de Datos', icon: '🛡️', description: 'Proteger los datos personales y el derecho de las personas a controlar su información, cumpliendo con marcos como RGPD durante todo el ciclo de vida de la IA.' },
+        { name: 'Supervisión Humana', icon: '👨‍⚖️', description: 'Garantizar que los seres humanos puedan supervisar, influir y anular las decisiones de los sistemas de IA en todo momento, especialmente en situaciones de alto riesgo.' },
+        { name: 'Robustez y Seguridad', icon: '⚙️', description: 'Asegurar que los sistemas de IA sean fiables, seguros frente a ataques y protegidos en su funcionamiento en condiciones normales y adversas.' },
+        { name: 'Alfabetización y Concienciación', icon: '💡', description: 'Promover la educación y la conciencia pública sobre las capacidades, limitaciones y riesgos de la IA para fomentar un uso crítico e informado.' }
+    ],
+    frameworks: [
+        { name: 'Recomendación de la UNESCO', status: 'Voluntario (Directrices Éticas)', scope: 'Global, centrado en derechos humanos, educación y cultura.', mandates: 'Exige EIE, prohíbe la puntuación social/vigilancia masiva.', compliance: 'Poder reside en la autoridad moral global.' },
+        { name: 'Principios de IA de la OCDE', status: 'Voluntario (Estándar Intergubernamental)', scope: 'Países miembros, centrado en desarrollo económico y social.', mandates: 'Fomenta IA confiable para crecimiento inclusivo. Principios de transparencia y responsabilidad.', compliance: 'Adopción voluntaria y presión de pares.' },
+        { name: 'Ley de IA de la UE', status: 'Vinculante (Regulación Legal)', scope: 'Extraterritorial, se aplica a proveedores en el mercado de la UE.', mandates: 'Enfoque basado en riesgo. Obligaciones estrictas para sistemas de alto riesgo.', compliance: 'Multas de hasta el 7% de la facturación global.' },
+        { name: 'NIST AI Risk Management Framework', status: 'Voluntario (Directrices Prácticas)', scope: 'Universal, para cualquier organización.', mandates: 'Marco operativo (Gobernar, Mapear, Medir, Gestionar) para la gestión de riesgos.', compliance: 'Sin sanciones; valor en su utilidad práctica.' },
+       { "name": "ISO 42001", "status": "Norma Internacional Certificable (Voluntaria)", "scope": "Aplicable a cualquier organización que desarrolle, proporcione o utilice sistemas de IA.", "mandates": "Establece los requisitos para un Sistema de Gestión de Inteligencia Artificial (SGIA), enfocado en: la gestión de riesgos asociados a la IA, principios éticos (transparencia, equidad, etc.), y la mejora continua del SGIA.", "compliance": "Permite obtener certificación por terceros independientes, demostrando compromiso con el uso responsable de la IA y minimizando riesgos. El valor reside en su utilidad práctica y el fortalecimiento de la confianza de las partes interesadas."}
+    ],
+    education: {
+        promiseAndPeril: {
+            promise: { title: 'La Promesa: Revolución Pedagógica', points: ['Rutas de aprendizaje personalizadas', 'Tutores de IA disponibles 24/7', 'Experiencias de aprendizaje inmersivas', 'Automatización de tareas administrativas'] },
+            peril: { title: 'El Peligro: Desigualdad y Deshumanización', points: ['Sesgo y discriminación en calificaciones', 'Riesgos de privacidad de datos de estudiantes', 'Ampliación de la brecha digital', 'Pérdida de pensamiento crítico y dependencia excesiva'] }
+        },
+        governancePlan: [
+            {"title": "Equidad Algorítmica en Evaluaciones", "content": "Para garantizar la equidad en las evaluaciones, es fundamental exigir pruebas rigurosas de sesgo para los sistemas de Inteligencia Artificial (IA), especialmente en contextos de alto impacto como admisiones o calificaciones. La equidad en la IA implica asegurar un trato igualitario y justo para todos los individuos, grupos, comunidades, organizaciones y la sociedad en general, abordando la discriminación y el sesgo perjudicial. Se deben prohibir los modelos de 'caja negra' para la toma de decisiones críticas, ya que la incapacidad de comprender cómo se llega a un resultado dificulta la detección y mitigación de sesgos. En su lugar, se debe priorizar la implementación de modelos de IA explicables (XAI), los cuales proporcionan visibilidad sobre el razonamiento, atributos y limitaciones del modelo, ayudando a los interesados a entender el proceso de toma de decisiones de la IA, incluyendo los datos de entrada y los factores que influyeron en el resultado. Es crucial implementar auditorías periódicas de equidad y establecer procesos de apelación claros para los estudiantes. Esto asegura que existan mecanismos para la rendición de cuentas y la rectificación de decisiones erróneas. La supervisión humana significativa es primordial para detectar fallos, prevenir consecuencias no deseadas y anular decisiones de la IA, aplicando un enfoque de Humano en el Bucle (HITL) para interpretar los resultados de la IA y refinar continuamente el modelo. La identificación de riesgos y daños, incluyendo el daño individual, colectivo y social, debe ser un proceso continuo."},
+            {"title": "Privacidad y Seguridad de Datos de Estudiantes", "content": "Es imperativo establecer políticas robustas de gobernanza de datos que garanticen la calidad, integridad y privacidad de la información a lo largo de todo el ciclo de vida de la Inteligencia Artificial (IA). Esto incluye el cumplimiento estricto con regulaciones de protección de datos como el Reglamento General de Protección de Datos (RGPD) en Europa y leyes de privacidad específicas como la Ley de Derechos Educativos y Privacidad Familiar (FERPA) y la Ley de Protección de la Privacidad en Línea de los Niños (COPPA) en Estados Unidos, que rigen la Información de Identificación Personal (PII). Se deben prohibir el uso de PII en herramientas públicas de IA y exigir la implementación de principios de privacidad desde el diseño, utilizando Tecnologías de Mejora de la Privacidad (PETs) como la anonimización, la seudonimización y la agregación de datos. Esto significa que las consideraciones de privacidad deben ser incorporadas desde las etapas más tempranas del desarrollo del sistema de IA. Se deben establecer controles de seguridad rigurosos, como el cifrado de datos en reposo y en tránsito, y estrictos Controles de Acceso Basados en Roles (RBAC), para proteger los sistemas de IA contra accesos no autorizados, ataques cibernéticos (como ataques adversarios, envenenamiento de datos y exfiltración de modelos) y filtraciones de datos. Los sistemas 'cerrados' o con entornos controlados deben ser priorizados, respaldados por garantías contractuales de privacidad que aseguren la protección de la información sensible y el manejo adecuado de los datos de terceros."},
+            {"title": "Integridad Académica y Alfabetización en IA", "content": "Para fomentar la integridad académica en la era de la Inteligencia Artificial (IA), el enfoque debe estar en la educación y el empoderamiento, en lugar de únicamente en la detección de plagio. Es esencial integrar la alfabetización en IA en el currículo de todos los niveles educativos, desde los primeros años. La alfabetización en IA implica que los estudiantes y el personal comprendan cómo funcionan los sistemas de IA, sus capacidades y limitaciones, así como los beneficios y riesgos inherentes, como el sesgo o la intrusión en la privacidad. Esto también incluye entender cómo la IA manipula símbolos sin comprender plenamente el significado o los conceptos subyacentes. Se deben crear directrices claras sobre el uso aceptable de la IA en el trabajo académico y la investigación, enseñando a los estudiantes cómo citar correctamente el contenido generado por IA. Además, es crucial capacitar a los educadores y al personal en el uso responsable y ético de la IA, promoviendo el pensamiento crítico. Las instituciones deben esforzarse por encontrar un equilibrio que permita aprovechar el potencial de la IA para mejorar la experiencia de aprendizaje, como la personalización de materiales educativos y la tutoría inteligente, al mismo tiempo que se protegen los derechos de autor y se promueve el crecimiento intelectual de los estudiantes. Es fundamental concienciar sobre los riesgos de desinformación y las 'deepfakes' (contenido multimedia manipulado por IA)."},
+            {"title": "Gobernanza y Supervisión Humana", "content": "Es fundamental establecer un Consejo de Gobernanza de la Inteligencia Artificial (IA) formal y centralizado, con un fuerte patrocinio ejecutivo, para supervisar la adquisición, el desarrollo y el despliegue de todas las herramientas de IA en la institución. Este consejo debe incluir a múltiples partes interesadas, como docentes, estudiantes, administradores, expertos legales y éticos, y profesionales de Tecnologías de la Información (TI), para asegurar una perspectiva diversa y una supervisión integral. La gobernanza de la IA es el marco de principios, políticas, procesos, roles y tecnologías que guían el desarrollo y uso responsable de los sistemas de IA, con el objetivo de alinearlos con los valores éticos, las regulaciones legales y los objetivos institucionales. Las responsabilidades deben estar claramente definidas a lo largo de todo el ciclo de vida de la IA, utilizando marcos como RACI (Responsable, Responsable de Rendición de Cuentas, Consultado, Informado) para delinear la propiedad y la rendición de cuentas en la identificación, evaluación, mitigación y notificación de riesgos de la IA. La supervisión humana significativa es primordial, especialmente para los sistemas de IA de alto riesgo. Los humanos deben conservar la capacidad explícita de anular las decisiones de la IA, con rutas de escalada claras y justificaciones documentadas para la intervención, aplicando un enfoque de Humano en el Bucle (HITL) para interpretar los resultados de la IA y refinar continuamente el modelo. La identificación de riesgos y daños, incluyendo el daño individual, colectivo y social, debe ser un proceso continuo."}
+        ],
+        riskMatrix: [
+            { useCase: 'Calificación Automatizada', risks: 'Sesgo algorítmico, falta de explicabilidad.', controls: 'Exigir auditorías de sesgo, usar solo en bajo impacto, proceso de apelación humano.' },
+            { useCase: 'Análisis Predictivo del Éxito', risks: 'Sesgo en identificación de riesgo, estigmatización.', controls: 'Validar modelos localmente, usar como alerta no como juicio, supervisión humana obligatoria.' },
+            { useCase: 'IA en Admisiones', risks: 'Exacerbación de sesgos históricos, falta de transparencia.', controls: 'Prohibir "cajas negras", exigir explicaciones, mantener supervisión humana significativa.' },
+            { useCase: 'IA Generativa para Tareas', risks: 'Plagio, contenido incorrecto, riesgos de privacidad.', controls: 'Políticas de uso y citación claras, diseñar evaluaciones auténticas, prohibir PII en herramientas públicas.' },
+        ],
+        prompt: {
+            title: 'Prompt Maestro para Instituciones Educativas',
+            persona: 'You are an expert policy analyst and legal counsel specializing in education technology, AI ethics, and regulatory compliance for a large, multi-campus public university system. Your task is to draft a comprehensive "AI Governance Constitution" for the institution.',
+            objective: "Generate a formal, detailed, and actionable AI governance framework document. This document must establish clear rules, responsibilities, and procedures for the ethical and responsible procurement, development, and use of all AI systems across the institution. The framework must be grounded in the principles of the **UNESCO Recommendation on the Ethics of Artificial Intelligence** and comply with relevant regulations like FERPA and COPPA. Ask for the [University Name] and the Language of the document (Spanish or English) before generating the document.",
+            structure: `**Required Structure and Content:**
+
+Please generate the document following this exact table of contents:
+
+**AI Governance Constitution for [University Name]**
+
+**Preamble:**
+* State the university's commitment to harnessing AI for educational excellence while upholding core values of academic integrity, equity, human dignity, and student well-being, explicitly referencing the humanistic goals of the UNESCO Recommendation.
+
+**Article I: Foundational Principles**
+* Define the core ethical principles that will guide all AI activities at the university. For each principle, provide a brief definition and its specific implication for an educational context. (List all 8 principles)
+
+**Article II: Governance and Oversight**
+* 2.1. **AI Governance Council:** Establish the charter for a university-wide AI Governance Council.
+* 2.2. **Ethical Impact Assessment (EIA):** Mandate an EIA before any new AI system is procured or deployed for high-impact use cases.
+* 2.3. **Procurement and Vendor Management:** Define the requirements for vendors of AI systems.
+
+**Article III: Policies for AI in the Educational Environment**
+* 3.1. **Policy on Algorithmic Fairness in Educational Assessments:**
+* 3.2. **Policy on Student Data Privacy and Security:**
+* 3.3. **Policy on Academic Integrity and AI Literacy:**
+    * **Do not focus on unreliable AI detection tools.** Instead, focus on pedagogy and clear guidelines.
+
+**Article IV: Implementation and Review**
+* 4.1. **Training and Capacity Building:**
+* 4.2. **Review and Amendment:**`
+        }
+    },
+    finance: {
+        promiseAndPeril: {
+            promise: { title: 'La Transformación: Eficiencia y Seguridad', points: ['Detección de fraude en tiempo real', 'Comercio algorítmico de alta velocidad', 'Decisiones de crédito automatizadas', 'Asesoramiento de inversión personalizado'] },
+            peril: { title: 'Los Riesgos: Sesgo y Estabilidad', points: ['Préstamos discriminatorios por sesgo algorítmico', 'Falta de explicabilidad ("cajas negras")', 'Riesgos de ciberseguridad con datos sensibles', 'Riesgo sistémico para la estabilidad del mercado'] }
+        },
+        governancePlan: [
+            { "title": "Consejo de Gobernanza y Responsabilidad", "content": "Establecer un Consejo formal de Gobernanza de IA con fuerte patrocinio ejecutivo es fundamental para cultivar una cultura de gestión de riesgos y asegurar el desarrollo y uso responsable de la IA, ya que la gobernanza de IA es la base para sistemas transparentes y responsables. Este consejo debe definir roles y responsabilidades claras a lo largo de todo el ciclo de vida de la IA, utilizando marcos como RACI para delinear la propiedad y la rendición de cuentas en la identificación, evaluación, mitigación y notificación de riesgos de IA. El liderazgo ejecutivo debe asumir activamente la responsabilidad de las decisiones relacionadas con el desarrollo y la implementación de sistemas de IA, estableciendo el tono organizacional y alineando la gestión de riesgos de IA con las prioridades estratégicas. El consejo también debe asegurar la integración con los comités de gobernanza y riesgo organizacionales existentes, definiendo estatutos y términos clave para una comprensión y supervisión coherentes." },
+            { "title": "Gestión de Riesgos alineada con regulaciones Colombia e Internacionales", "content": "Implementar un sistema de gestión de riesgos de IA continuo y proactivo integrado a lo largo de todo el ciclo de vida del sistema de IA, reconociendo que los riesgos de IA son únicos y requieren enfoques personalizados. Esto incluye clasificar los sistemas de IA, como la calificación crediticia, como 'Alto Riesgo' según la Ley de IA de la UE, que exige requisitos estrictos para la certificación, controles y evaluaciones de conformidad para garantizar que los resultados no causen daño. Para todos los sistemas de IA, se deben identificar, evaluar y mitigar los riesgos, adoptando un enfoque centrado en controles para las propuestas, el desarrollo y la implementación de modelos. Emplear las funciones MAP, MEASURE y MANAGE del Marco de Gestión de Riesgos de IA del NIST ayuda a establecer el contexto, analizar los impactos y priorizar las respuestas, asegurando que los riesgos se monitoreen y gestionen continuamente. Abordar una tipología de riesgos que incluye seguridad, rendimiento, reputación, empresa, escalabilidad, legal y caja negra, garantiza la resiliencia contra errores, ataques y deriva del modelo. En Colombia se adopta la recomendación del Consejo de la OCDE sobre inteligencia artificial y existe la POLÍTICA NACIONAL DE INTELIGENCIA ARTIFICIAL Conpes 4144." },
+            { "title": "Gobernanza de Datos, Calidad y Privacidad", "content": "Implementar prácticas rigurosas de gobernanza de datos para asegurar la calidad, integridad y privacidad de los datos a lo largo de todo el ciclo de vida de la IA, ya que los datos son primordiales para el entrenamiento y rendimiento de los modelos de IA. El cumplimiento del RGPD y leyes de privacidad de datos similares, como la CCPA, es obligatorio, requiriendo adhesión a principios como la limitación de propósito, minimización de datos y responsabilidad en el procesamiento de datos. Abordar proactivamente los posibles sesgos incrustados en los conjuntos de datos mediante evaluaciones periódicas de calidad y aplicar la limpieza y preprocesamiento de datos es crucial. Implementar los principios de privacidad desde el diseño desde el inicio del desarrollo del sistema de IA, utilizando tecnologías de mejora de la privacidad (PETs) como la desidentificación y la agregación cuando corresponda, es vital para proteger la información sensible." },
+            { "title": "Transparencia, Explicabilidad y Equidad", "content": "Priorizar el uso de modelos de IA explicables (XAI) para asegurar que los procesos de toma de decisiones de la IA sean transparentes y comprensibles para todos los interesados, especialmente para decisiones de alto impacto donde las justificaciones claras son esenciales. Realizar auditorías periódicas de equidad e identificar y mitigar proactivamente los sesgos heredados de los datos de entrenamiento es fundamental, garantizando que los sistemas de IA proporcionen un trato equitativo y no perpetúen la discriminación basada en características protegidas. Proporcionar explicaciones claras y significativas a los clientes sobre las decisiones adversas tomadas por los sistemas de IA, detallando la entrada, los datos y los factores que influyeron en el resultado, es un imperativo legal y ético. El aprovechamiento de los conceptos de transparencia, explicabilidad e interpretabilidad construye confianza y permite una mejor auditoría y gobernanza. La monitorización continua de los resultados de la IA para detectar errores perjudiciales, sesgos y amenazas de engaño es crucial para una IA responsable." },
+            { "title": "Supervisión Humana y Monitoreo Continuo", "content": "Asegurar una supervisión humana significativa para todos los sistemas de IA, particularmente los modelos de alto riesgo, ya que el juicio y la intervención humana son primordiales para prevenir consecuencias no deseadas, mantener la responsabilidad y construir confianza. Los humanos deben retener explícitamente la capacidad de anular las decisiones de la IA, especialmente para aplicaciones críticas, con rutas de escalada claras y justificaciones documentadas para la intervención. Implementar un monitoreo continuo a lo largo de todo el ciclo de vida del proyecto de IA (diseño, desarrollo, implementación) para rastrear el deterioro del rendimiento, los cambios en la distribución de datos y los sesgos emergentes, identificando posibles fallos tempranamente. Utilizar un enfoque de Humano en el Bucle (HITL) como una salvaguarda crítica, asegurando que la experiencia humana pueda interpretar las salidas de la IA, detectar fallos y proporcionar retroalimentación para refinar continuamente el modelo de IA, promoviendo un sistema de aprendizaje y asegurando la auditabilidad de las intervenciones." }
+
+        ],
+        checklist: [
+            { category: 'Gobernanza', item: 'Establecer un Consejo de Gobernanza de la IA con patrocinador ejecutivo.' },
+            { category: 'Gobernanza', item: 'Desarrollar y aprobar una política de IA para toda la empresa.' },
+            { category: 'Gestión de Riesgos', item: 'Crear y mantener un inventario de sistemas de IA y clasificación de riesgos.' },
+            { category: 'Gestión de Riesgos', item: 'Realizar Evaluaciones de Impacto Ético/Regulatorio para sistemas de alto riesgo.' },
+            { category: 'Gestión de Datos', item: 'Implementar una política de gobernanza de datos (linaje, calidad, privacidad).' },
+            { category: 'Gestión de Datos', item: 'Validar los datos de entrenamiento para que sean precisos, completos y representativos.' },
+            { category: 'Desarrollo de Modelos', item: 'Priorizar modelos explicables (XAI) para decisiones de alto impacto.' },
+            { category: 'Desarrollo de Modelos', item: 'Realizar pruebas de sesgo y equidad antes y después del despliegue.' },
+            { category: 'Despliegue y Monitoreo', item: 'Asegurar mecanismos de supervisión humana efectivos (capacidad de anulación).' },
+            { category: 'Despliegue y Monitoreo', item: 'Implementar un plan de monitoreo para el rendimiento y la desviación del modelo.' },
+        ],
+        prompt: {
+            title: 'Prompt Maestro para Servicios Financieros',
+            persona: 'You are a senior risk management and compliance officer at a multinational financial services firm (e.g., an investment bank, asset manager). You are an expert in financial regulations, data governance, and AI risk management. and you are responsible to create a AI governange document for the firm.',
+            objective: "Draft a comprehensive and robust 'AI Governance Framework' for the firm. This document must establish the policies, procedures, and controls necessary to ensure all AI systems are developed and deployed in a safe, sound, fair, and compliant manner. The framework's primary goal is to ensure compliance with the **high-risk system requirements of the EU AI Act**, which the firm adopts as its global minimum standard. It must also align with the **OECD AI Principles** and the operational guidance of the **NIST AI Risk Management Framework**, and ISO 42001.You need to evaluate the Colombia regulation and guidelines because you operate in Colombia and the firm is committed to complying with local laws and regulations. The framework should also consider the firm's global operations, ensuring that it meets or exceeds the highest standards of AI governance and risk management. Ask for the [Firm Name] and the Language of the document (Spanish or English) before generating the document.",
+            structure: `**Required Structure and Content:**
+
+Please generate the framework document following this exact table of contents:
+
+**[Firm Name] Artificial Intelligence (AI) Governance Framework**
+
+**1.0 Introduction and Scope**
+* 1.1. Purpose
+* 1.2. Scope
+* 1.3. Definition of AI
+
+**2.0 AI Governance and Accountability**
+* 2.1. AI Governance Council
+* 2.2. Roles and Responsibilities
+* 2.3. AI System Inventory
+
+**3.0 AI Risk Management Framework (Aligned with EU AI Act & NIST RMF)**
+* 3.1. Risk Classification
+* 3.2. Risk Management Lifecycle
+* 3.3. Third-Party Risk Management
+
+**4.0 Technical and Data Governance Requirements for High-Risk Systems**
+* 4.1. Data Governance
+* 4.2. Transparency and Explainability
+* 4.3. Robustness, Accuracy, and Security
+* 4.4. Human Oversight
+
+**5.0 Documentation, Auditing, and Training**
+* 5.1. Technical Documentation
+* 5.2. Logging and Traceability
+* 5.3. Auditing and Testing
+* 5.4. Training
+
+**6.0 Framework Review**`
+        }
+    }
+};
+
+// As you wish 1: Move all render functions to top-level so they are defined before use
+function renderPrinciples() {
+    const container = document.querySelector('#global-consensus .grid');
+    container.innerHTML = AppData.principles.map(p => `
+        <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer principle-card">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold text-gray-900">${p.name}</h3>
+                <span class="text-2xl">${p.icon}</span>
+            </div>
+            <div class="accordion-content mt-4 text-gray-600">
+                <p>${p.description}</p>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderFrameworks() {
+    const container = document.querySelector('#frameworks-comparison .grid');
+    container.innerHTML = AppData.frameworks.map(f => `
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex flex-col">
+            <h3 class="text-xl font-bold text-gray-900 mb-3">${f.name}</h3>
+            <p class="mb-4 text-gray-600 flex-grow">${f.scope}</p>
+            <div class="space-y-2 text-sm">
+                <p><strong class="text-gray-700">Estatus:</strong> <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">${f.status}</span></p>
+                <p><strong class="text-gray-700">Mandatos Clave:</strong> ${f.mandates}</p>
+                <p><strong class="text-gray-700">Cumplimiento:</strong> ${f.compliance}</p>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderSectorContent(sector) {
+    const data = AppData[sector];
+    let riskContent;
+    if (sector === 'education') {
+        riskContent = `
+            <h4 class="text-lg font-semibold text-gray-800 mb-4">Matriz de Mitigación de Riesgos</h4>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Caso de Uso</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Riesgos Primarios</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Medidas de Control</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        ${data.riskMatrix.map(row => `
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${row.useCase}</td>
+                                <td class="px-6 py-4 whitespace-normal text-sm text-gray-600">${row.risks}</td>
+                                <td class="px-6 py-4 whitespace-normal text-sm text-gray-600">${row.controls}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    } else {
+        riskContent = `
+            <h4 class="text-lg font-semibold text-gray-800 mb-4">Lista de Verificación para un Marco Responsable</h4>
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <ul class="space-y-3">
+                    ${data.checklist.map(item => `
+                        <li class="flex items-start">
+                            <span class="flex-shrink-0 h-6 w-6 rounded-full bg-green-100 text-green-800 flex items-center justify-center text-sm font-bold">✓</span>
+                            <p class="ml-3 text-sm text-gray-700"><strong class="font-semibold">${item.category}:</strong> ${item.item}</p>
+                        </li>
+                    `).join('')}
+                </ul>
+            </div>
+        `;
+    }
+    return `
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                <h3 class="text-xl font-bold text-blue-900 mb-4">${data.promiseAndPeril.promise.title}</h3>
+                <ul class="list-disc list-inside space-y-2 text-blue-800">
+                    ${data.promiseAndPeril.promise.points.map(p => `<li>${p}</li>`).join('')}
+                </ul>
+            </div>
+            <div class="bg-red-50 p-6 rounded-lg border border-red-200">
+                <h3 class="text-xl font-bold text-red-900 mb-4">${data.promiseAndPeril.peril.title}</h3>
+                <ul class="list-disc list-inside space-y-2 text-red-800">
+                    ${data.promiseAndPeril.peril.points.map(p => `<li>${p}</li>`).join('')}
+                </ul>
+            </div>
+        </div>
+        <div>
+            <h3 class="text-xl font-bold text-gray-900 mb-6 text-center">Plan de Gobernanza Esencial</h3>
+            <div class="space-y-4">
+                ${data.governancePlan.map((item, index) => `
+                    <div class="border border-gray-200 rounded-lg">
+                        <button class="w-full flex justify-between items-center p-4 text-left font-semibold text-gray-800 accordion-trigger">
+                            <span>${item.title}</span>
+                            <span class="transform transition-transform duration-300">▼</span>
+                        </button>
+                        <div class="accordion-content px-4 pb-4 text-gray-600">
+                            ${item.content}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+        <div class="mt-12">
+            ${riskContent}
+        </div>
+    `;
+}
+
+function renderPrompts() {
+    const container = document.querySelector('#prompts .grid');
+    const prompts = [AppData.education.prompt, AppData.finance.prompt];
+    container.innerHTML = prompts.map((p, index) => `
+        <div class="bg-gray-900 text-gray-100 rounded-xl shadow-lg p-6 flex flex-col">
+             <h3 class="text-xl font-bold text-white mb-4">${p.title}</h3>
+             <div class="bg-gray-800 rounded-md p-4 text-sm font-mono overflow-x-auto h-64 flex-grow relative">
+                <p class="whitespace-pre-wrap"><strong class="text-yellow-400">Persona:</strong> ${p.persona}</p><br>
+                <p class="whitespace-pre-wrap"><strong class="text-green-400">Objective:</strong> ${p.objective}</p><br>
+                <p class="whitespace-pre-wrap"><strong class="text-cyan-400">Structure:</strong> ${p.structure}</p>
+             </div>
+             <button class="copy-btn mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300" data-index="${index}">Copiar Prompt</button>
+        </div>
+    `).join('');
+}
+
+// As you wish 1: Animate Gemini-style gauge for governance
+setTimeout(() => {
+    const fg = document.getElementById('gauge-fg-governance');
+    const label = document.getElementById('gauge-label-governance');
+    const percent = 35;
+    const totalLen = 314.159;
+    let current = 0;
+    const steps = 30;
+    let step = 0;
+    function animate() {
+        step++;
+        current = percent * (step / steps);
+        const offset = totalLen * (1 - current / 100);
+        fg.setAttribute('stroke-dashoffset', offset);
+        label.textContent = Math.round(current) + '%';
+        if (step < steps) {
+            requestAnimationFrame(animate);
+        } else {
+            fg.setAttribute('stroke-dashoffset', totalLen * (1 - percent / 100));
+            label.textContent = percent + '%';
+        }
+    }
+    animate();
+}, 200);
+
+// As you wish 1: Render all dynamic content after DOM is ready
+function renderAll() {
+    renderPrinciples();
+    renderFrameworks();
+    document.getElementById('content-educacion').innerHTML = renderSectorContent('education');
+    document.getElementById('content-finanzas').innerHTML = renderSectorContent('finance');
+    renderPrompts();
+}
+renderAll();
+
+// As you wish 1: Setup tab logic to always show correct content
+const educacionTab = document.getElementById('tab-educacion');
+const finanzasTab = document.getElementById('tab-finanzas');
+const educacionContent = document.getElementById('content-educacion');
+const finanzasContent = document.getElementById('content-finanzas');
+
+educacionTab.addEventListener('click', () => {
+    educacionTab.classList.add('tab-active');
+    educacionTab.classList.remove('tab-inactive');
+    finanzasTab.classList.add('tab-inactive');
+    finanzasTab.classList.remove('tab-active');
+    educacionContent.classList.remove('hidden');
+    finanzasContent.classList.add('hidden');
+});
+finanzasTab.addEventListener('click', () => {
+    finanzasTab.classList.add('tab-active');
+    finanzasTab.classList.remove('tab-inactive');
+    educacionTab.classList.add('tab-inactive');
+    educacionTab.classList.remove('tab-active');
+    finanzasContent.classList.remove('hidden');
+    educacionContent.classList.add('hidden');
+});
+
+// As you wish 1: Accordion and copy logic
+document.body.addEventListener('click', (e) => {
+    if (e.target.closest('.principle-card')) {
+        const card = e.target.closest('.principle-card');
+        const content = card.querySelector('.accordion-content');
+        content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
+    }
+    if (e.target.classList.contains('accordion-trigger')) {
+        const content = e.target.nextElementSibling;
+        const arrow = e.target.querySelector('span:last-child');
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+            arrow.style.transform = 'rotate(0deg)';
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            arrow.style.transform = 'rotate(-180deg)';
+        }
+    }
+    if(e.target.classList.contains('copy-btn')) {
+        const index = e.target.dataset.index;
+        const promptData = index == 0 ? AppData.education.prompt : AppData.finance.prompt;
+        const textToCopy = `Persona: ${promptData.persona}\n\nObjective: ${promptData.objective}\n\n${promptData.structure}`;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            e.target.textContent = '¡Copiado!';
+            setTimeout(() => { e.target.textContent = 'Copiar Prompt'; }, 2000);
+        }).catch(err => {
+            console.error('Error al copiar: ', err);
+        });
+    }
+});
+</script>
+
+</body>
+</html>
