@@ -15,7 +15,7 @@
       "Graph Databases"
     ]
   },
-    {
+  {
     "id": 10,
     "title": "AI Governance Tools",
     "category": "Business",
@@ -149,6 +149,19 @@
       "AI Learning",
       "AI Agents",
       "LLMs"
+    ]
+  },
+  {
+    "id": 11,
+    "title": "AI Digital Twins Scope and Viability in Enterprise Solutions",
+    "category": "Business",
+    "status": "Active",
+    "progress": 0,
+    "description": "This research initiative explores the strategic implementation and commercial viability of AI-powered digital twins within enterprise environments. The project investigates how digital twin technology can be enhanced through advanced AI capabilities to create dynamic, real-time virtual representations of physical assets, processes, and systems. Key focus areas include evaluating the technical feasibility of integrating machine learning models, and predictive analytics to enable proactive decision-making and operational optimization. The research will assess implementation challenges, ROI potential, and scalability considerations across various industry verticals including manufacturing, supply chain, and resource management. A critical component involves developing frameworks for data integration, model validation, and continuous learning to ensure digital twins remain accurate and actionable representations of their physical counterparts.",
+    "technologies": [
+      "Digital Twin Technology",
+      "Machine Learning",
+      "Predictive Analytics"
     ]
   }
 ]
