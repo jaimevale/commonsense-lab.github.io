@@ -82,10 +82,11 @@
     "category": "Business",
     "status": "Active",
     "progress": 8,
-    "description": "This project involves a systematic survey and development of an AI-augmented ecosystem designed to accelerate the onboarding process for software developers in organizations undergoing digital transformation. The research is centered on architecting intelligent AI agents, manifested as IDE extensions (e.g., for VSCode), which utilize Retrieval-Augmented Generation (RAG) to parse proprietary codebases and GIT repositories. The objective is to deliver a system that provides real-time, contextual support, thereby significantly reducing the ramp-up period and enhancing developer efficacy and integration [1].",
+    "description": "This project investigates the foundational paradigms that new software developers must adopt to integrate effectively into unfamiliar development environments. The research is centered on two key aspects: enabling comprehensive understanding of existing code repositories and embracing a specification-driven development approach. By equipping new team members with advanced tools—such as intelligent documentation systems, code explorers, and context-aware assistants—the project aims to facilitate rapid assimilation of coding standards, architectural patterns, and best practices. However, its overarching goal is to affirm the irreplaceable value of the human developer: fostering creativity, critical problem-solving, and meaningful contributions that cannot be supplanted by automation. Through this dual focus, the initiative seeks to empower developers to become indispensable contributors, ensuring their skills and perspectives remain central even as teams adopt increasingly sophisticated AI-augmented workflows.",
     "technologies": [
       "AI Agents",
       "VSCode Extension",
+      "Kiro IDE",
       "GIT",
       "RAG",
       "LLMs"
