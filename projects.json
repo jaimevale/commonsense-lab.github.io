@@ -30,6 +30,24 @@
     ]
   },
   {
+    "id": 21,
+    "title": "AI Governance Evaluation Agent for LLM Compliance Assessment",
+    "category": "Business",
+    "status": "Active",
+    "progress": 5,
+    "url": "/governance-agent.html",
+    "description": "This project focuses on developing an intelligent AI agent specifically designed to evaluate and assess the governance, regulatory compliance, ethics, and legal alignment of Large Language Model (LLM) executions and responses. The agent functions as a specialized component within a mixture of experts framework, providing real-time evaluation of LLM behavior including response quality, tool invocation appropriateness, and adherence to established governance frameworks. The system examines LLM outputs against predefined ethical guidelines, regulatory requirements, and organizational policies to ensure responsible AI deployment. Key capabilities include automated assessment of bias, fairness, transparency, and accountability in AI-generated content, as well as evaluation of compliance with frameworks such as UNESCO AI Ethics, GDPR, and industry-specific regulations. The agent serves as a critical oversight mechanism, providing detailed behavioral analysis and compliance scoring to support human decision-makers in maintaining ethical and legally compliant AI operations across enterprise environments.",
+    "technologies": [
+      "AI Governance",
+      "LLM Evaluation",
+      "Regulatory Compliance",
+      "AI Ethics",
+      "Mixture of Experts",
+      "Compliance Scoring",
+      "Real-time Assessment"
+    ]
+  },
+  {
     "id": 2,
     "title": "AI assisted tool to Learning and Training for Medical Professionals",
     "category": "Healthcare",
