@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YNBFHR5HN2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-YNBFHR5HN2');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agora Fostering Venture Building - AFVB</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png">
+    <style>
+        :root {
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-color: #1a202c;
+            --header-color: #001f3f;
+            --accent-color: #007BFF;
+            --accent-hover: #0056b3;
+        }
+        body {
+            font-family: 'Work Sans', 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            overscroll-behavior-x: none;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        .page-title, h1, h2, h3, h4 {
+            color: var(--header-color);
+            font-family: 'Work Sans', 'Inter', sans-serif;
+        }
+        .tab-active {
+            background: linear-gradient(90deg, #4f8cff 0%, #7b61ff 50%, #00e0e0 100%);
+            color: #fff !important;
+            font-weight: 700;
+            border-radius: 1rem 1rem 0 0;
+            box-shadow: 0 -2px 8px rgba(79,140,255,0.08);
+            border-bottom: 2px solid var(--accent-color);
+            z-index: 2;
+            position: relative;
+        }
+        .tab-inactive {
+            background: #f3f4f6;
+            color: #6b7280;
+            border-radius: 1rem 1rem 0 0;
+            border-bottom: 2px solid transparent;
+            z-index: 1;
+            position: relative;
+        }
+        .tab-btn {
+            transition: background 0.2s, color 0.2s;
+            padding: 0.75rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0.25rem;
+            outline: none;
+            border: none;
+            cursor: pointer;
+        }
+        .tab-btn:focus {
+            box-shadow: 0 0 0 2px #4f8cff33;
+        }
+        .tab-bar {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            background: transparent;
+            border-bottom: 2px solid #e5e7eb;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .tech-tag, .technology-tag {
+            display: inline-block;
+            background: linear-gradient(90deg, #e5e7eb 60%, #f3f4f6 100%);
+            color: #374151;
+            font-size: 0.82rem;
+            font-weight: 500;
+            border-radius: 9999px;
+            padding: 0.18rem 0.75rem;
+            margin: 0 0.1rem 0.2rem 0;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            border: 1px solid #e5e7eb;
+            transition: background 0.2s;
+            cursor: default;
+        }
+        .tech-tag:hover, .technology-tag:hover {
+            background: linear-gradient(90deg, #f3f4f6 60%, #e5e7eb 100%);
+        }
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        section {
+            background: rgba(255,255,255,0.8);
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        button, .btn {
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+        button:hover, .btn:hover {
+            background-color: var(--accent-hover);
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 1.5em;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Work Sans', 'Inter', sans-serif;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .value-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+<nav id="main-nav" class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-md shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="/index.html" class="flex items-center space-x-2 nav-link" data-index="0">
+                    <img src="/favicon-64x64.png" alt="CommonSense IA Lab Logo"  class="h-8 w-8">
+                    <span class="font-bold text-xl text-blue-900 hidden sm:block">CommonSense AI Lab</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-1 lg:space-x-4">
+                    <a href="/vision.html" class="nav-link" data-index="1">Vision & Values</a>
+                    <a href="/collaboration.html" class="nav-link" data-index="2">Collaboration</a>
+                    <a href="/topics.html" class="nav-link" data-index="3">Working Topics</a>
+                    <a href="/structure.html" class="nav-link" data-index="4">Lab Structure</a>
+                    <a href="/impact.html" class="nav-link" data-index="5">Approach</a>
+                    <a href="/contact.html" class="nav-link flex items-center gap-2" data-index="6"><i class="far fa-envelope"></i> Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-7xl" style="margin-top: 4.5rem;">
+
+        <!-- Hero Section -->
+        <header class="hero-gradient text-white text-center mb-12 p-12 rounded-xl">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Agora Fostering Venture Building</h1>
+            <p class="text-xl mb-6">Catalizador de armonía social y desarrollo sostenible en Latinoamérica</p>
+            <div class="max-w-4xl mx-auto">
+                <p class="text-lg opacity-90">
+                    Una organización dedicada a acompañar y elevar el potencial emprendedor de la región, 
+                    empoderando fundadores con conocimientos clave, buenas prácticas y redes de colaboración.
+                </p>
+            </div>
+        </header>
+
+        <main>
+            <!-- Introducción -->
+            <section id="introduction" class="mb-16 bg-white p-8 rounded-xl shadow-sm">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">Transformando el Emprendimiento Latinoamericano</h2>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="text-gray-700 space-y-4">
+                        <p>En el panorama empresarial latinoamericano, las pequeñas y medianas empresas (PYMES) representan el motor principal de generación de empleo, innovación y cohesión social. Sin embargo, muchas de estas iniciativas enfrentan enormes retos a la hora de consolidarse, acceder a recursos y ordenar su crecimiento estratégico.</p>
+                        <p>AFVB surge como respuesta a esta realidad, especialmente en comunidades con menores oportunidades educativas y financieras, fundamentando su labor en el acompañamiento técnico, el intercambio desinteresado de saberes y la creación de espacios de mentoría.</p>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-blue-800 mb-4">Nuestro Enfoque</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-center"><span class="text-blue-500 mr-2">✓</span> Acompañamiento técnico y de negocio</li>
+                            <li class="flex items-center"><span class="text-blue-500 mr-2">✓</span> Intercambio desinteresado de saberes</li>
+                            <li class="flex items-center"><span class="text-blue-500 mr-2">✓</span> Espacios de mentoría especializados</li>
+                            <li class="flex items-center"><span class="text-blue-500 mr-2">✓</span> Superación de brechas estructurales</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Misión y Visión -->
+            <section id="mission-vision" class="mb-16">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card">
+                        <h2 class="text-2xl font-bold text-blue-800 mb-4">Misión</h2>
+                        <p class="text-gray-700 mb-4">
+                            Fomentar la creación, consolidación y maduración de empresas de impacto social en el entorno latinoamericano, 
+                            promoviendo entornos de armonía y entendimiento tanto en el seno familiar como en la comunidad empresarial.
+                        </p>
+                        <p class="text-gray-700">
+                            AFVB apuesta por la formación y el apoyo estratégico, convencida de que el conocimiento es el recurso más 
+                            poderoso para el desarrollo colectivo, bajo principios de generosidad y co-creación.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h2 class="text-2xl font-bold text-blue-800 mb-4">Visión</h2>
+                        <p class="text-gray-700">
+                            Construir un ecosistema colaborativo robusto, donde los conocimientos fluyen libremente y los empresarios 
+                            experimentados ponen al servicio de los fundadores toda su experiencia profesional, red de contactos y 
+                            sensibilidad social. Generar una cultura de colaboración, resiliencia y equidad, que sirva de base para 
+                            sociedades más saludables, productivas y solidarias.
+                        </p>
+                    </div>
+                </div>
+            </section>    
+        <!-- Modelo y Estructura -->
+            <section id="model" class="mb-16 bg-white p-8 rounded-xl shadow-sm">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Modelo de Venture Building</h2>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">
+                    AFVB opera bajo un enfoque de "venture building" que va más allá de la simple mentoría. 
+                    A diferencia de aceleradoras tradicionales, no aporta capital ni busca participación financiera.
+                </p>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="card text-center">
+                        <div class="text-4xl mb-4">🔍</div>
+                        <h3 class="text-lg font-bold mb-2">Diagnóstico Inicial</h3>
+                        <p class="text-gray-600">Identificación de necesidades reales de la empresa y los emprendedores</p>
+                    </div>
+                    <div class="card text-center">
+                        <div class="text-4xl mb-4">👥</div>
+                        <h3 class="text-lg font-bold mb-2">Mentoría Empresarial</h3>
+                        <p class="text-gray-600">Acompañamiento personalizado en estrategia, gestión del talento y liderazgo social</p>
+                    </div>
+                    <div class="card text-center">
+                        <div class="text-4xl mb-4">📚</div>
+                        <h3 class="text-lg font-bold mb-2">Transferencia de Buenas Prácticas</h3>
+                        <p class="text-gray-600">Metodologías probadas y desarrollo de habilidades clave</p>
+                    </div>
+                    <div class="card text-center">
+                        <div class="text-4xl mb-4">🌐</div>
+                        <h3 class="text-lg font-bold mb-2">Conexión con Redes</h3>
+                        <p class="text-gray-600">Acceso a comunidades empresariales nacionales e internacionales</p>
+                    </div>
+                    <div class="card text-center">
+                        <div class="text-4xl mb-4">🎯</div>
+                        <h3 class="text-lg font-bold mb-2">Acompañamiento en Hitos</h3>
+                        <p class="text-gray-600">Apoyo en metas claras y fortalecimiento de la gobernanza</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Principios y Valores -->
+            <section id="principles" class="mb-16">
+                <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">Principios de Acción y Valores</h2>
+                
+                <div class="border-b border-gray-200 mb-8">
+                    <nav class="tab-bar" aria-label="Tabs">
+                        <button id="tab-principios" class="tab-btn tab-active">Principios de Acción</button>
+                        <button id="tab-valores" class="tab-btn tab-inactive">Valores Institucionales</button>
+                    </nav>
+                </div>
+
+                <div id="content-principios">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="card">
+                            <div class="value-icon">📖</div>
+                            <h3 class="text-xl font-bold mb-3">Educación y Conocimiento</h3>
+                            <p class="text-gray-700">Cada decisión está orientada a la transferencia de saberes en beneficio del emprendedor y sus equipos.</p>
+                        </div>
+                        <div class="card">
+                            <div class="value-icon">🚫💰</div>
+                            <h3 class="text-xl font-bold mb-3">No Participación Económica</h3>
+                            <p class="text-gray-700">AFVB no recibe ingresos, utilidades ni acciones; todo el trabajo es voluntario y sin ánimo de lucro.</p>
+                        </div>
+                        <div class="card">
+                            <div class="value-icon">💪</div>
+                            <h3 class="text-xl font-bold mb-3">Empoderamiento y Autonomía</h3>
+                            <p class="text-gray-700">Los fundadores conservan el control total, incentivando responsabilidad, innovación y reciprocidad.</p>
+                        </div>
+                        <div class="card">
+                            <div class="value-icon">🤝</div>
+                            <h3 class="text-xl font-bold mb-3">Generosidad Colaborativa</h3>
+                            <p class="text-gray-700">Promoción de ayuda mutua generando una red internacional de apoyo y diálogo abierto.</p>
+                        </div>
+                        <div class="card">
+                            <div class="value-icon">🏠</div>
+                            <h3 class="text-xl font-bold mb-3">Compromiso Social y Familiar</h3>
+                            <p class="text-gray-700">Los emprendimientos deben crear valor social, resiliencia familiar y bienestar comunitario.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="content-valores" class="hidden">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="card">
+                            <div class="value-icon">❤️</div>
+                            <h3 class="text-xl font-bold mb-3">Compromiso Social</h3>
+                            <p class="text-gray-700">Generar bienestar familiar y comunitario, promoviendo proyectos que contribuyan a la resiliencia y armonía social.</p>
+                        </div>
+                        <div class="card">
+                            <div class="value-icon">🤝</div>
+                            <h3 class="text-xl font-bold mb-3">Colaboración</h3>
+                            <p class="text-gray-700">Compartir conocimiento empresarial sin esperar retribución financiera; la generosidad es el motor del acompañamiento.</p>
+                        </div>
+                        <div class="card">
+                            <div class="value-icon">✨</div>
+                            <h3 class="text-xl font-bold mb-3">Integridad</h3>
+                            <p class="text-gray-700">Transparencia y honestidad en todos los procesos, cultivando relaciones basadas en la confianza y el respeto mutuo.</p>
+                        </div>
+                        <div class="card">
+                            <div class="value-icon">🌱</div>
+                            <h3 class="text-xl font-bold mb-3">Sostenibilidad</h3>
+                            <p class="text-gray-700">Asegurar que las empresas prosperen a largo plazo, maximizando el impacto positivo sobre sus comunidades y el medio ambiente.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Áreas de Acompañamiento -->
+            <section id="areas" class="mb-16 bg-white p-8 rounded-xl shadow-sm">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Áreas de Acompañamiento Empresarial</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="tech-tag">Diseño de modelos de negocio sostenibles</div>
+                    <div class="tech-tag">Estrategia de crecimiento y posicionamiento</div>
+                    <div class="tech-tag">Desarrollo de productos con impacto social</div>
+                    <div class="tech-tag">Transformación digital e innovación tecnológica</div>
+                    <div class="tech-tag">Liderazgo y gestión del talento</div>
+                    <div class="tech-tag">Medición de impacto social y ambiental</div>
+                    <div class="tech-tag">Adaptación a mercados internacionales</div>
+                </div>
+                <p class="text-center text-gray-600 mt-6">
+                    Este trabajo multidisciplinario permite que los emprendedores se beneficien de una visión integral, 
+                    pasando de la idea al crecimiento empresarial sostenible.
+                </p>
+            </section>
+
+            <!-- Equipo Principal -->
+            <section id="team" class="mb-16">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Equipo Principal</h2>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">
+                    El corazón de AFVB es su equipo directivo, compuesto por empresarios con trayectoria consolidada y 
+                    sensibilidad social, quienes donan su tiempo y experiencia como co-directores y mentores.
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card text-center">
+                        <div class="text-6xl mb-4">👨‍💼</div>
+                        <h3 class="text-xl font-bold mb-3">Juan Gonzalo Vallejo</h3>
+                        <p class="text-gray-700">
+                            Empresario colombiano especializado mercadeo, con sólida experiencia en mercadeo corporativo, creación de empresas en 
+                            el área química, optimización de procesos, 
+                            gestión eficiente de capital y transformación empresarial. Destaca por su capacidad de generar ambientes 
+                            colaborativos y orientados al desarrollo personal y regional.
+                        </p>
+                    </div>
+                    <div class="card text-center">
+                        <div class="text-6xl mb-4">👨‍💻</div>
+                        <h3 class="text-xl font-bold mb-3">Jaime Valencia</h3>
+                        <p class="text-gray-700 mb-4">
+                            Empresario multinacional con más de tres décadas de experiencia en dirección de empresas tecnológicas. 
+                            Como lider técnico y CTO de VCSOFT., lidera operaciones que abarcan varios paises latinoamericanos
+                            en donde a aportano en la construcción de soluciones de tecnologías de banca, retail y telecomunicaciones.
+                        </p>
+                        <a href="https://www.linkedin.com/in/jaimevalencia/" target="_blank" class="text-blue-600 hover:text-blue-800">
+                            Perfil LinkedIn
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Casos de Éxito -->
+            <section id="success" class="mb-16 bg-gradient-to-r from-green-50 to-blue-50 p-8 rounded-xl">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Casos de Éxito</h2>
+                <div class="max-w-4xl mx-auto text-center">
+                    <p class="text-gray-700 text-lg mb-6">
+                        AFVB ha acompañado a numerosos emprendimientos latinoamericanos en sectores como tecnología, 
+                        manufactura, agroindustria y servicios sociales.
+                    </p>
+                    <p class="text-gray-700 mt-6">
+                        Las historias de éxito demuestran que el verdadero valor radica en el acceso a conocimiento y redes estratégicas, 
+                        no en el capital financiero. Los beneficiarios han logrado aumentar su competitividad, fortalecer la cohesión 
+                        interna y expandir su impacto social, preservando siempre su autonomía e independencia.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Por qué elegir AFVB -->
+            <section id="why-choose" class="mb-16 bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-xl">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">¿Por qué Elegir AFVB?</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="flex items-start space-x-3">
+                        <div class="text-green-500 text-2xl">✓</div>
+                        <div>
+                            <h3 class="font-bold mb-2">Libre de Riesgo Económico</h3>
+                            <p class="text-gray-700">No exigimos contraprestación financiera ni retenemos acciones de las compañías incubadas.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div class="text-green-500 text-2xl">✓</div>
+                        <div>
+                            <h3 class="font-bold mb-2">Red de Empresarios</h3>
+                            <p class="text-gray-700">Acceso a mentoring, asesoría y conexiones internacionales de alto valor.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div class="text-green-500 text-2xl">✓</div>
+                        <div>
+                            <h3 class="font-bold mb-2">Modelo Escalable</h3>
+                            <p class="text-gray-700">Replicable y adaptable, diseñado para el crecimiento genuino en mercados emergentes.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div class="text-green-500 text-2xl">✓</div>
+                        <div>
+                            <h3 class="font-bold mb-2">Desarrollo Humano</h3>
+                            <p class="text-gray-700">Énfasis en la gestión emocional, reconociendo que el bienestar familiar es fundamento del éxito empresarial.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contacto -->
+            <section id="contact" class="bg-white p-8 rounded-xl shadow-sm text-center">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Contacto</h2>
+                <p class="text-gray-600 mb-6">
+                    Para recibir acompañamiento, presentar una iniciativa o conocer más sobre el trabajo de AFVB:
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8">
+                    <a href="mailto:contacto@agorafostering.org" class="flex items-center space-x-2 text-blue-600 hover:text-blue-800">
+                        <span class="text-xl">📧</span>
+                        <span>contacto@agorafostering.org</span>  <span>jaimev@vc-soft.com</span>
+                    </a>
+                    <a href="https://commonsense-lab.com/VentureBuilder/agoraFosteringVentureBuilder.html" target="_blank" class="flex items-center space-x-2 text-blue-600 hover:text-blue-800">
+                        <span class="text-xl">🔗</span>
+                        <span>Sitio Web</span>
+                    </a>
+                </div>
+            </section>
+
+        </main>
+        
+        <footer class="text-center mt-16 pt-8 border-t border-gray-200">
+            <p class="text-sm text-gray-500">Agora Fostering Venture Building - Transformando el emprendimiento en Latinoamérica</p>
+        </footer>
+
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Tab functionality
+    const tabPrincipios = document.getElementById('tab-principios');
+    const tabValores = document.getElementById('tab-valores');
+    const contentPrincipios = document.getElementById('content-principios');
+    const contentValores = document.getElementById('content-valores');
+
+    if (tabPrincipios && tabValores) {
+        tabPrincipios.addEventListener('click', () => {
+            tabPrincipios.className = 'tab-btn tab-active';
+            tabValores.className = 'tab-btn tab-inactive';
+            contentPrincipios.classList.remove('hidden');
+            contentValores.classList.add('hidden');
+        });
+
+        tabValores.addEventListener('click', () => {
+            tabValores.className = 'tab-btn tab-active';
+            tabPrincipios.className = 'tab-btn tab-inactive';
+            contentValores.classList.remove('hidden');
+            contentPrincipios.classList.add('hidden');
+        });
+    }
+
+    // Smooth scrolling for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>
